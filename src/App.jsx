@@ -1,11 +1,12 @@
 import React from 'react'
 import Navbar from './Components/Navbar'
-import Body from './pages/Body'
+import { Outlet } from 'react-router-dom'
 const App = () => {
   return (
     <div>
       <Navbar />
-      <Body />
+      <Outlet/>
+      
     </div>
   )
 }

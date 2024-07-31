@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import mainLogo from '../../assets/ASlogo.png';
-import { MdOutlineAddShoppingCart, MdOutlineShoppingCartCheckout, MdOutlineNetworkWifi } from "react-icons/md";
 import { LiaInfoSolid } from "react-icons/lia";
 import { LuLogIn } from "react-icons/lu";
 import { CiLogout } from "react-icons/ci";
 import { IoCallOutline } from "react-icons/io5";
-import { RiSignalWifiOffLine } from "react-icons/ri";
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { AiOutlineHome } from 'react-icons/ai';
+import { CgNotes } from 'react-icons/cg';
 
 const Navbar = () => {
   const [btnName, setBtnName] = useState("Login");
@@ -29,78 +28,63 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { title: 'Home', url: '/', icon: <AiOutlineHome className="w-6 h-6 mr-2" /> },
-    { title: 'About', url: '/about', icon: <LiaInfoSolid className="w-6 h-6 mr-2" /> },
-    { title: 'Entertainment', url: '/contact', icon: <IoCallOutline className="w-6 h-6 mr-2" /> },
-    { title: 'Business', url: '/business', icon: <IoCallOutline className="w-6 h-6 mr-2" /> },
-    { title: 'Health', url: '/health', icon: <IoCallOutline className="w-6 h-6 mr-2" /> },
-    { title: 'Science', url: '/science', icon: <IoCallOutline className="w-6 h-6 mr-2" /> },
-    { title: 'Sports', url: '/sports', icon: <IoCallOutline className="w-6 h-6 mr-2" /> },
-    { title: 'Technology', url: '/technology', icon: <IoCallOutline className="w-6 h-6 mr-2" /> },
+    { title: 'Home', url: '/', icon: <AiOutlineHome className="w-5 h-5" /> },
+    { title: 'About', url: '/about', icon: <LiaInfoSolid className="w-5 h-5" /> },
+    { title: 'Contact', url: '/contact', icon: <IoCallOutline className="w-5 h-5" /> },
+    { title: 'Take Notes', url: '/notes', icon: <CgNotes className="w-5 h-5" /> },
   ];
 
   return (
-    <nav className="bg-primary-bgColor">
-      <div className="flex items-center justify-between px-4 py-2">
+    <nav className="font-sans shadow-md bg-primary-bgColor">
+      <div className="container flex items-center justify-between px-4 py-3 mx-auto">
         <Link to="/" className="flex items-center">
-          <img className="w-20 h-20" loading="eager" src={mainLogo} alt="Logo" />
+          <img className="w-16 h-16" loading="eager" src={mainLogo} alt="Logo" />
         </Link>
 
         {!isMobile ? (
           <div className="flex items-center space-x-6">
             {navLinks.map((link, index) => (
-              <Link key={index} to={link.url} className="flex items-center text-primary-light hover:text-primary-white">
+              <Link key={index} to={link.url} className="flex items-center transition-colors duration-200 text-primary-light hover:text-primary-yellow">
                 {link.icon}
-                <span>{link.title}</span>
+                <span className="ml-1">{link.title}</span>
               </Link>
             ))}
             <Link
               to="/auth"
               onClick={() => setBtnName(btnName === "Login" ? "Logout" : "Login")}
-              className="flex items-center text-primary-light hover:text-primary-white"
+              className="flex items-center transition-colors duration-200 text-primary-light hover:text-primary-yellow"
             >
-              {btnName === "Login" ? <LuLogIn className="w-6 h-6 mr-2" /> : <CiLogout className="w-6 h-6 mr-2" />}
-              {btnName}
+              {btnName === "Login" ? <LuLogIn className="w-5 h-5" /> : <CiLogout className="w-5 h-5" />}
+              <span className="ml-1">{btnName}</span>
             </Link>
-            {/* <div title={onlineStatus ? "Connected to internet" : "Offline"} className="text-primary-light">
-              {onlineStatus ? <MdOutlineNetworkWifi className="w-6 h-6" /> : <RiSignalWifiOffLine className="w-6 h-6" />}
-            </div> */}
           </div>
         ) : (
-          <div className="flex items-center space-x-4">
-            {/* <Link to="/cart" className="relative text-primary-light hover:text-primary-white">
-              <MdOutlineAddShoppingCart className="w-6 h-6" />
-              {cartItems.length > 0 && (
-                <div className="absolute flex items-center justify-center w-5 h-5 text-sm font-bold rounded-full text-primary-bgColor bg-primary-yellow -top-4 -right-2">
-                  {cartItems.length}
-                </div>
-              )}
-            </Link> */}
-            <button onClick={toggleModal} className="text-primary-light hover:text-primary-white">
-              <FaBars className="w-6 h-6" />
-            </button>
-          </div>
+          <button onClick={toggleModal} className="transition-colors duration-200 text-primary-light hover:text-primary-yellow">
+            <FaBars className="w-6 h-6" />
+          </button>
         )}
       </div>
 
+
+      {/* Mobile Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-4/5 max-w-md p-6 rounded-lg bg-primary-bgColor">
-            <div className="flex justify-end">
-              <button onClick={toggleModal} className="text-primary-light hover:text-primary-white">
+          <div className="w-4/5 max-w-md p-6 rounded-lg shadow-xl bg-primary-bgColor">
+            <div className="flex justify-end mb-4">
+              <button onClick={toggleModal} className="transition-colors duration-200 text-primary-light hover:text-primary-yellow">
                 <FaTimes className="w-6 h-6" />
               </button>
             </div>
-            <div className="flex flex-col mt-4 space-y-4">
+            <div className="flex flex-col space-y-4">
               {navLinks.map((link, index) => (
                 <Link
                   key={index}
                   to={link.url}
-                  className="flex items-center text-primary-light hover:text-primary-white"
+                  className="flex items-center transition-colors duration-200 text-primary-light hover:text-primary-yellow"
                   onClick={toggleModal}
                 >
                   {link.icon}
-                  <span>{link.title}</span>
+                  <span className="ml-2">{link.title}</span>
                 </Link>
               ))}
               <Link
@@ -109,15 +93,11 @@ const Navbar = () => {
                   setBtnName(btnName === "Login" ? "Logout" : "Login");
                   toggleModal();
                 }}
-                className="flex items-center text-primary-light hover:text-primary-white"
+                className="flex items-center transition-colors duration-200 text-primary-light hover:text-primary-yellow"
               >
-                {btnName === "Login" ? <LuLogIn className="w-6 h-6 mr-2" /> : <CiLogout className="w-6 h-6 mr-2" />}
-                {btnName}
+                {btnName === "Login" ? <LuLogIn className="w-5 h-5" /> : <CiLogout className="w-5 h-5" />}
+                <span className="ml-2">{btnName}</span>
               </Link>
-              {/* <div className="flex items-center text-primary-light">
-                {onlineStatus ? <MdOutlineNetworkWifi className="w-6 h-6 mr-2" /> : <RiSignalWifiOffLine className="w-6 h-6 mr-2" />}
-                <span>{onlineStatus ? "Online" : "Offline"}</span>
-              </div> */}
             </div>
           </div>
         </div>
