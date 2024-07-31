@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import mainLogo from '../assets/ASlogo.png';
+import mainLogo from '../../assets/ASlogo.png';
 import { MdOutlineAddShoppingCart, MdOutlineShoppingCartCheckout, MdOutlineNetworkWifi } from "react-icons/md";
 import { LiaInfoSolid } from "react-icons/lia";
 import { LuLogIn } from "react-icons/lu";
