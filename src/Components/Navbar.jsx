@@ -6,8 +6,8 @@ import { LuLogIn } from "react-icons/lu";
 import { CiLogout } from "react-icons/ci";
 import { IoCallOutline } from "react-icons/io5";
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { AiOutlineHome } from 'react-icons/ai';
-import { CgNotes } from 'react-icons/cg';
+import { MdOutlineNewspaper } from "react-icons/md";
+import { TbNotes } from 'react-icons/tb';
 
 const Navbar = () => {
   const [btnName, setBtnName] = useState("Login");
@@ -28,17 +28,17 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { title: 'Home', url: '/', icon: <AiOutlineHome className="w-5 h-5" /> },
+    { title: 'News', url: '/', icon: <MdOutlineNewspaper  className="w-5 h-5" /> },
     { title: 'About', url: '/about', icon: <LiaInfoSolid className="w-5 h-5" /> },
     { title: 'Contact', url: '/contact', icon: <IoCallOutline className="w-5 h-5" /> },
-    { title: 'Take Notes', url: '/notes', icon: <CgNotes className="w-5 h-5" /> },
+    { title: 'Notes', url: '/notes', icon: <TbNotes  className="w-5 h-5" /> },
   ];
 
   return (
     <nav className="font-sans shadow-md bg-primary-bgColor">
-      <div className="container flex items-center justify-between px-4 py-3 mx-auto">
+      <div className="container flex items-center justify-between px-4 py-2 mx-auto">
         <Link to="/" className="flex items-center">
-          <img className="w-16 h-16" loading="eager" src={mainLogo} alt="Logo" />
+          <img className="w-10 h-10 filter invert sepia saturate-200 hue-rotate-60 brightness-110 contrast-100" loading="eager" src={mainLogo} alt="Logo" />
         </Link>
 
         {!isMobile ? (

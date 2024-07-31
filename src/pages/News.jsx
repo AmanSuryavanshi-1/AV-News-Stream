@@ -45,7 +45,6 @@ const News = ( ) =>{
   };
   return (
     <>
-     <NavbarCategorySearch />
      <div className="min-h-screen font-sans bg-primary-bgColor text-primary-white">
       {loading ? (
         <div className="flex items-center justify-center h-screen">
@@ -56,6 +55,8 @@ const News = ( ) =>{
           <h1 className="mb-8 font-serif text-3xl font-bold text-center md:text-4xl lg:text-5xl text-primary-yellow">
             AI NewsMate: Top {capitalizeFirstLetter(category)} Headlines
           </h1>
+          
+     <NavbarCategorySearch />
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {news.map((i, index) => (
               <NewsCard 

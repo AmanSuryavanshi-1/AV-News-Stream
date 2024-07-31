@@ -8,6 +8,8 @@ import News from './pages/News.jsx';
 import Error from './Components/Error.jsx';
 import Saved from './pages/Saved.jsx';
 import Navbar from './Components/Navbar.jsx';
+import Notes from './pages/Notes.jsx';
+import Auth from './pages/Auth.jsx';
 
 const AppLayout = () => {
   return (
@@ -27,7 +29,8 @@ const appRouter = createBrowserRouter([
       // { path: "", element: <HomePage/> },
       { path: "", element: <News/> },
       { path: "/about", element: <About/> },
-      // { path: "/recommended", element: <Recommended /> },
+      { path: "/notes", element: <Notes /> },
+      { path: "/auth", element: <Auth /> },
       { path: "/contact", element: <Contact /> },
       { path: "/saved", element: <Saved /> }, //add news to fav to read it later
       { path: "/news/:category", element: <News /> }
