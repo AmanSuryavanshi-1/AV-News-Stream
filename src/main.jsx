@@ -28,12 +28,12 @@ const appRouter = createBrowserRouter([
     path: "/",
     element: <AppLayout />,
     children: [
-      { path: "/", element: <HomePage/> },
+      { path: "", element: <HomePage/> },
       { path: "/about", element: <About/> },
       // { path: "/recommended", element: <Recommended /> },
       { path: "/contact", element: <Contact /> },
       { path: "/saved", element: <Saved /> }, //add news to fav to read it later
-      { path: "/:category", element: <News /> },
+      { path: "news/:category", element: <News /> },
      ],
     errorElement: <Error />,
   },

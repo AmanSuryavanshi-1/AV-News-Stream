@@ -9,8 +9,7 @@ const pageSize = 21; // Adjust this number as needed
 const HomePage = () => {
   const [topNews, setTopNews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const categories = ['business', 'entertainment', 'health', 'science', 'sports', 'technology'];
-
+  
   useEffect(() => {
     const fetchTopNews = async () => {
       try {

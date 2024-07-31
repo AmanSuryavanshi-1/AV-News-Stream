@@ -9,12 +9,12 @@ const NavbarCategorySearch = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const categories = [
-    { title: 'Entertainment', url: '/entertainment', icon: <BiMoviePlay className="w-5 h-5" /> },
-    { title: 'Business', url: '/business', icon: <BiNews className="w-5 h-5" /> },
-    { title: 'Health', url: '/health', icon: <BiHealth className="w-5 h-5" /> },
-    { title: 'Science', url: '/science', icon: <BiAtom className="w-5 h-5" /> },
-    { title: 'Sports', url: '/sports', icon: <BiFootball className="w-5 h-5" /> },
-    { title: 'Technology', url: '/technology', icon: <BiMicrochip className="w-5 h-5" /> },
+    { title: 'Entertainment', url: '/news/entertainment', icon: <BiMoviePlay className="w-5 h-5" /> },
+    { title: 'Business', url: '/news/business', icon: <BiNews className="w-5 h-5" /> },
+    { title: 'Health', url: '/news/health', icon: <BiHealth className="w-5 h-5" /> },
+    { title: 'Science', url: '/news/science', icon: <BiAtom className="w-5 h-5" /> },
+    { title: 'Sports', url: '/news/sports', icon: <BiFootball className="w-5 h-5" /> },
+    { title: 'Technology', url: '/news/technology', icon: <BiMicrochip className="w-5 h-5" /> },
   ];
 
   const handleSearch = (e) => {
