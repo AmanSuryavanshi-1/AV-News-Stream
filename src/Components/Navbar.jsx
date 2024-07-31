@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import mainLogo from '../../assets/ASlogo.png';
 import { LiaInfoSolid } from "react-icons/lia";
 import { LuLogIn } from "react-icons/lu";
-import { CiLogout } from "react-icons/ci";
+import { CiBookmark, CiLogout } from "react-icons/ci";
 import { IoCallOutline } from "react-icons/io5";
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdOutlineNewspaper } from "react-icons/md";
@@ -32,6 +32,14 @@ const Navbar = () => {
     { title: 'About', url: '/about', icon: <LiaInfoSolid className="w-5 h-5" /> },
     { title: 'Contact', url: '/contact', icon: <IoCallOutline className="w-5 h-5" /> },
     { title: 'Notes', url: '/notes', icon: <TbNotes  className="w-5 h-5" /> },
+    { title: 'Saved News', url: '/saved', icon: <CiBookmark  className="w-5 h-5" /> },
+    // <Link
+    //           to="/saved"
+    //           className="flex items-center ml-4 transition-colors duration-200 text-primary-light hover:text-primary-yellow"
+    //         >
+    //           <AiOutlineSave className="w-5 h-5" />
+    //           <span className="ml-1 text-sm">Saved</span>
+    //         </Link>
   ];
 
   return (

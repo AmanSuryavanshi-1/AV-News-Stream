@@ -18,7 +18,6 @@ const NavbarCategorySearch = () => {
     { title: 'Science', url: '/news/science', icon: <BiAtom className="w-5 h-5" /> },
     { title: 'Sports', url: '/news/sports', icon: <BiFootball className="w-5 h-5" /> },
     { title: 'Technology', url: '/news/technology', icon: <BiMicrochip className="w-5 h-5" /> },
-    { title: 'Saved', url: '/news/saved', icon: <AiOutlineSave className="w-5 h-5" /> },
   ];
 
   const handleSearch = (e) => {
@@ -63,13 +62,6 @@ const NavbarCategorySearch = () => {
                 <FaSearch className="w-4 h-4" />
               </button>
             </form>
-            {/* <Link
-              to="/saved"
-              className="flex items-center ml-4 transition-colors duration-200 text-primary-light hover:text-primary-yellow"
-            >
-              < className="w-5 h-5" />
-              <span className="ml-1 text-sm">Saved</span>
-            </Link> */}
           </div>
         </div>
         {isDropdownOpen && (
