@@ -3,8 +3,8 @@ import NewsCard from '../Components/NewsCard'
 
 const pageSize=20;
 const page =1;
-const country='in';
-const category = 'entertainment';
+const country='us';
+const category = 'technology';
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const Body = () =>{
@@ -35,15 +35,24 @@ const Body = () =>{
   return (
     <>
     {loading ? (
-        <p>Loading...</p>
+        <div className="flex items-center justify-center h-screen">
+          <span className="loading loading-spinner loading-lg"></span>
+        </div>
       ) : (
     <div>
       <h1>News</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {news.map((article, index) => (
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {news.map((i, index) => (
           <NewsCard 
             key = {index}
-            newsInfo = {article}
+            // newsInfo = {i}
+            title={i.title ? i.title: ' '}
+            description={i.description ? i.description.slice(0, 180) : ' '}
+            imageUrl={i.urlToImage}
+            newsUrl={i.url}
+            author={i.author}
+            date={i.publishedAt}
+            source={i.source.name}
            />
         ))}
       </div>

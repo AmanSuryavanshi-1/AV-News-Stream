@@ -1,50 +1,67 @@
 import React from 'react'
+import { FaUser, FaCalendarAlt, FaImage } from 'react-icons/fa'
 
-const NewsCard = ({ newsInfo }) => {
-  const { title, description, content, urlToImage, source, author, publishedAt, url } = newsInfo;
-console.log(description)
+const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, source, date }) => {
   // Function to truncate text
   const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
 
-  // Function to format date
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+  // Default descriptions
+  const defaultDescriptions = [
+    "Stay informed with the latest updates on this developing story. Our news team is working to bring you more details as they become available.",
+    "Breaking news: This is a developing story. Check back for updates as we continue to gather information from our sources.",
+    "In-depth coverage: Our reporters are investigating this story from all angles. More comprehensive details will be provided soon.",
+    "Our team is investigating this breaking news. More details will follow as they become available.",
+    "We are actively following this story and will provide more information as soon as it becomes available.",
+    "Keep an eye on this space for more updates. Our reporters are on the ground gathering the latest details.",
+    "Our newsroom is committed to bringing you the latest updates on this situation as it unfolds."
+  ];
+
+  // Function to get a random default description
+  const getDefaultDescription = () => {
+    const randomIndex = Math.floor(Math.random() * defaultDescriptions.length);
+    return defaultDescriptions[randomIndex];
   };
 
+  // Use description if available and not empty, otherwise use a default description
+  const displayDescription = description && description.trim() !== "" ? description : getDefaultDescription();
+
   return (
-    <div className="card bg-base-100 shadow-xl overflow-hidden">
-      <figure className="relative">
-        <img
-          src={urlToImage || 'https://placehold.co/600x400'}
-          alt={title}
-          className="w-full h-48 object-cover"
-        />
-        <div className="absolute top-2 left-2 badge badge-secondary text-xs font-bold">
-          {source?.name || 'News Source'}
-        </div>
-        {content && content.includes('Breaking') && (
-          <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs font-bold rounded">
-            BREAKING NEWS
+    <div className="overflow-hidden transition-shadow duration-300 shadow-xl card bg-base-100 hover:shadow-2xl">
+      <figure className="relative h-56">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={title}
+            className="object-cover w-full h-full"
+          />
+        ) : (
+          <div className="flex items-center justify-center w-full h-full text-gray-500 bg-gray-200">
+            <FaImage className="w-12 h-12" />
           </div>
         )}
-      </figure>
-      <div className="card-body p-4">
-        <h2 className="card-title text-lg font-bold mb-2">{truncate(title, 60)}</h2>
-        <p className="text-sm mb-4">{truncate(description, 100)}</p>
-        <div className="flex justify-between items-center text-xs text-gray-500 mb-4">
-          <span>{author ? `By ${author}` : 'Unknown Author'}</span>
-          <span>{formatDate(publishedAt)}</span>
+        <div className="absolute px-2 py-1 text-xs font-bold rounded-full top-2 left-2 badge badge-primary">
+          {source || 'Google News'}
         </div>
-        <div className="card-actions justify-between items-center">
-          <div className="flex flex-wrap gap-2">
-            {content && content.split(' ').slice(0, 3).map((tag, index) => (
-              <div key={index} className="badge badge-outline">{tag}</div>
-            ))}
-          </div>
-          <a href={url} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
+      </figure>
+      <div className="p-4 card-body">
+        <h2 className="mb-2 text-xl font-bold card-title line-clamp-2">{truncate(title, 100)}</h2>
+        <p className="mb-4 text-sm text-gray-600 line-clamp-3">
+          {truncate(displayDescription, 180)}
+        </p>
+        <div className="flex items-center justify-between mb-4 text-xs text-gray-500">
+          <span className="flex items-center">
+            <FaUser className="w-4 h-4 mr-1" />
+            {author || 'Unknown Author'}
+          </span>
+          <span className="flex items-center">
+            <FaCalendarAlt className="w-4 h-4 mr-1" />
+            {new Date(date).toLocaleDateString()}
+          </span>
+        </div>
+        <div className="justify-end card-actions">
+          <a href={newsUrl} target="_blank" rel="noopener noreferrer" className="normal-case btn btn-primary btn-sm">
             Read More
           </a>
         </div>
