@@ -5,9 +5,11 @@ import { AiOutlineSave } from 'react-icons/ai';
 import { BiAtom, BiFootball, BiHealth, BiMicrochip, BiMoviePlay, BiNews } from 'react-icons/bi';
 import { HiMenu, HiX } from 'react-icons/hi';
 import { FaNewspaper, FaSearch } from 'react-icons/fa';
+import DataFetch from '../utils/DataFetch';
+import SearchBar from './SearchBar';
 
 const NavbarCategorySearch = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchText, setSearchText] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const categories = [
@@ -20,10 +22,6 @@ const NavbarCategorySearch = () => {
     { title: 'Technology', url: '/news/technology', icon: <BiMicrochip className="w-5 h-5" /> },
   ];
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log("Searching for:", searchTerm);
-  };
 
   return (
     <div className="p-2 my-8 bg-primary-dark rounded-3xl">
@@ -49,20 +47,8 @@ const NavbarCategorySearch = () => {
               ))}
             </div>
           </div>
-          <div className="flex items-center w-full mt-2 md:mt-0 md:w-auto">
-            <form onSubmit={handleSearch} className="flex items-center flex-grow md:flex-grow-0">
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-3 py-1 rounded-l-full bg-primary-grey text-primary-light focus:outline-none"
-              />
-              <button type="submit" className="px-6 py-2 transition-colors duration-200 rounded-r-full bg-primary-yellow text-primary-dark hover:bg-primary-light">
-                <FaSearch className="w-4 h-4" />
-              </button>
-            </form>
-          </div>
+          {/* Searching */}
+              <SearchBar/>
         </div>
         {isDropdownOpen && (
           <div className="md:hidden">

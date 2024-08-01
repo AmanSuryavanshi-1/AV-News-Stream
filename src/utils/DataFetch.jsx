@@ -8,7 +8,7 @@ const country='us';
 const apiKey = import.meta.env.VITE_API_KEY;
 const DataFetch = () => {
     
-  const { setNewsArticles } = useOutletContext(); // FOR READING NEWS
+  const { setNewsCopy } = useOutletContext(); // FOR READING NEWS
 
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true); 
@@ -26,7 +26,7 @@ const DataFetch = () => {
       const json = await data.json();
     //   console.log(json);
       setNews(json?.articles);
-      setNewsArticles(json?.articles); // FOR READING NEWS
+      setNewsCopy(json?.articles); // FOR READING NEWS
 
       
     //   setNews(articles.concat(json.articles));
@@ -41,7 +41,7 @@ const DataFetch = () => {
   
   useEffect(()=>{
     NewsData();
-  },[category, setNewsArticles]);
+  },[category, setNewsCopy]);
 
   return {news, loading}
 }

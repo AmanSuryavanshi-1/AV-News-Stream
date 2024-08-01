@@ -5,9 +5,9 @@ import NavbarCategorySearch from '../Components/NavbarCategorySearch'
 import DataFetch from '../utils/DataFetch';
 
 const News = ( ) =>{
-  const { activeArticleIndex } = useOutletContext(); // for speech
+  const { newsCopy, setNewsCopy , activeArticleIndex } = useOutletContext(); // for speech
 
-  const {news, loading} = DataFetch();  
+  const { loading } = DataFetch();  
   const { category } = useParams();
   
   useEffect(()=>{
@@ -32,7 +32,7 @@ const News = ( ) =>{
           
      <NavbarCategorySearch />
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {news.map((i, index) => (
+            {newsCopy.map((i, index) => (
               <NewsCard 
                 key={index}
                 title={i.title ? i.title : ' '}
