@@ -11,7 +11,7 @@ const NavbarCategorySearch = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const categories = [
-    { title: 'Top Headlines', url: '/news/entertainment', icon: <FaNewspaper  className="w-5 h-5" /> },
+    { title: 'Top Headlines', url: '/', icon: <FaNewspaper  className="w-5 h-5" /> },
     { title: 'Entertainment', url: '/news/entertainment', icon: <BiMoviePlay className="w-5 h-5" /> },
     { title: 'Business', url: '/news/business', icon: <BiNews className="w-5 h-5" /> },
     { title: 'Health', url: '/news/health', icon: <BiHealth className="w-5 h-5" /> },

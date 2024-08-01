@@ -33,8 +33,8 @@ const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, 
   // console.log(handleImageError);
   const handleImageError = useFallbackImage();
   return (
-    <div className="overflow-hidden transition-shadow duration-300 shadow-xl card bg-base-100 hover:shadow-2xl">
-      <figure className="relative h-56">
+    <div className="overflow-hidden transition-shadow duration-300 shadow-xl bg-primary-grey card hover:shadow-2xl">
+      <figure className="relative h-48">
         {/* {imageUrl ? ( */}
           <img
             src={imageUrl || "" }
