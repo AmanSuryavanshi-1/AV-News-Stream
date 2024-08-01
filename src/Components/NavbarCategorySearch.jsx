@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { LuSearch } from "react-icons/lu";
-import { AiOutlineSave } from 'react-icons/ai';
 import { BiAtom, BiFootball, BiHealth, BiMicrochip, BiMoviePlay, BiNews } from 'react-icons/bi';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { FaNewspaper, FaSearch } from 'react-icons/fa';
-import DataFetch from '../utils/DataFetch';
+import { FaNewspaper} from 'react-icons/fa';
 import SearchBar from './SearchBar';
 
 const NavbarCategorySearch = () => {
-  const [searchText, setSearchText] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const categories = [
