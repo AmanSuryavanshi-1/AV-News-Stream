@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 
 
 const pageSize=21;
@@ -7,6 +7,8 @@ const page =1;
 const country='us';
 const apiKey = import.meta.env.VITE_API_KEY;
 const DataFetch = () => {
+    
+  const { setNewsArticles } = useOutletContext(); // FOR READING NEWS
 
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true); 
@@ -22,8 +24,10 @@ const DataFetch = () => {
       // const data = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`)
       const data = await fetch(url);
       const json = await data.json();
-      console.log(json);
+    //   console.log(json);
       setNews(json?.articles);
+      setNewsArticles(json?.articles); // FOR READING NEWS
+
       
     //   setNews(articles.concat(json.articles));
       setLoading(false);
@@ -37,7 +41,7 @@ const DataFetch = () => {
   
   useEffect(()=>{
     NewsData();
-  },[category]);
+  },[category, setNewsArticles]);
 
   return {news, loading}
 }

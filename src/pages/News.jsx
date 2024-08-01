@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import NewsCard from '../Components/NewsCard'
-import { useParams } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import NavbarCategorySearch from '../Components/NavbarCategorySearch'
 import DataFetch from '../utils/DataFetch';
 
 const News = ( ) =>{
-  const {news, loading} = DataFetch();  
+  const { activeArticleIndex } = useOutletContext(); // for speech
 
+  const {news, loading} = DataFetch();  
   const { category } = useParams();
+  
   useEffect(()=>{
     document.title = `${capitalizeFirstLetter(category)} - AI NewsMate`;
   },[category]);
@@ -40,6 +42,7 @@ const News = ( ) =>{
                 author={i.author}
                 date={i.publishedAt}
                 source={i.source.name}
+                isActive={index === activeArticleIndex}
               />
             ))}
           </div>

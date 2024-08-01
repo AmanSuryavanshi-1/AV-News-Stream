@@ -2,7 +2,7 @@ import React from 'react'
 import { FaUser, FaCalendarAlt, FaImage } from 'react-icons/fa'
 import useFallbackImage from '../utils/useFallbackImage';
 
-const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, source, date }) => {
+const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, source, date, isActive }) => {
   // Function to truncate text
   const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -29,25 +29,20 @@ const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, 
   const displayDescription = description && description.trim() !== "" ? description : getDefaultDescription();
 
   // Handling Null images
-  // const handleImageError = useFallbackImage();
-  // console.log(handleImageError);
   const handleImageError = useFallbackImage();
+
   return (
-    <div className="overflow-hidden transition-shadow duration-300 shadow-xl bg-primary-grey card hover:shadow-2xl">
+    <div className={`overflow-hidden transition-all duration-300 shadow-xl bg-primary-grey card hover:shadow-2xl ${
+      isActive ? 'ring-4 ring-primary-yellow scale-105' : ''
+    }`}>
       <figure className="relative h-48">
-        {/* {imageUrl ? ( */}
-          <img
-            src={imageUrl || "" }
-            alt={title}
-            onError={handleImageError} 
-            loading='lazy'
-            className="object-cover w-full h-full"
-          />
-        {/* // ) : (
-        //   <div className="flex items-center justify-center w-full h-full text-gray-500 bg-gray-200">
-        //     <FaImage className="w-12 h-12" />
-        //   </div>
-        // )} */}
+        <img
+          src={imageUrl || ""}
+          alt={title}
+          onError={handleImageError} 
+          loading='lazy'
+          className="object-cover w-full h-full"
+        />
         <div className="absolute px-2 py-1 text-xs font-bold rounded-full top-2 left-2 badge badge-primary">
           {source || 'Google News'}
         </div>
