@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import mainLogo from '../../assets/ASlogo.png';
+import mainLogo from '../../assets/AV_Main Logo.png';
 import { LiaInfoSolid } from "react-icons/lia";
 import { LuLogIn } from "react-icons/lu";
 import { CiBookmark, CiLogout } from "react-icons/ci";
@@ -46,7 +46,10 @@ const Navbar = () => {
     <nav className="font-sans shadow-md bg-primary-bgColor">
       <div className="container flex items-center justify-between px-4 py-2 mx-auto">
         <Link to="/" className="flex items-center">
-          <img className="w-10 h-10 filter invert sepia saturate-200 hue-rotate-60 brightness-110 contrast-100" loading="eager" src={mainLogo} alt="Logo" />
+          {/* <img className="w-24 h-20 filter invert sepia saturate-200 hue-rotate-60 brightness-110 contrast-100" loading="eager" src={mainLogo} alt="Logo" /> */}
+          <img className="w-24 h-16" loading="eager" src={mainLogo} alt="Logo" /> 
+          {/* <img className="w-40 h-16" loading="eager" src={mainLogo} alt="Logo" />  */}
+
         </Link>
 
         {!isMobile ? (
