@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useOutletContext, useParams } from 'react-router-dom';
 
 
-const pageSize=21;
-const page =1;
-const country='us';
+// const pageSize=21;
+// const page =1;
+// const country='us';
 // const apiKey = import.meta.env.VITE_API_KEY;
-const apiKey='72de93b59abd49d09f3d8543e914cfa3'
 const DataFetch = () => {
     
   const { setNewsCopy } = useOutletContext(); // FOR READING NEWS
@@ -17,20 +16,23 @@ const DataFetch = () => {
   const NewsData = async() =>{
 
     try{  
-      let url = `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
+      // let url = `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
+      //  const response = await fetch('http://localhost:3001/api/news?category=entertainment');
       // If there's is category then appending that in link else it will show top headlines
+      let url = '/api/news';
       if(category)[
-        url += `&category=${category}`
+        url += `?category=${category}`
       ]
       // const data = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`)
       const data = await fetch(url);
+      if (!data.ok) {
+        throw new Error(`HTTP error! status: ${data.status}`);
+      }
       const json = await data.json();
       console.log(json);
-      setNews(json?.articles);
-      setNewsCopy(json?.articles); // FOR READING NEWS
+      setNews(json?.articles || []);
+      setNewsCopy(json?.articles || []); // FOR READING NEWS
 
-      
-    //   setNews(articles.concat(json.articles));
       setLoading(false);
     } catch (error) {
       console.error("Error fetching news:", error);

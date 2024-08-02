@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect } from 'react'
 import NewsCard from '../Components/NewsCard'
 import { useOutletContext, useParams } from 'react-router-dom';
