@@ -46,9 +46,9 @@ const useTTS = (articles) => {
         speechRef.current = new SpeechSynthesisUtterance();
 
         speechRef.current.voice = voicesRef.current.find(voice => voice.name === "Google US English") || voicesRef.current[0];
-        speechRef.current.lang = 'en-IN';
-        speechRef.current.pitch = 4;
-        speechRef.current.rate = 0.9;
+        speechRef.current.lang = 'en-US';
+        speechRef.current.pitch = 0.9;
+        speechRef.current.rate = 1.1;
         speechRef.current.volume = 0.8;
 
         speechRef.current.text = `Article ${currentIndex + 1}: ${articles[currentIndex].title}`;
