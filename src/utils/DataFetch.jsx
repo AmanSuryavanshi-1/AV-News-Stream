@@ -24,7 +24,7 @@ const DataFetch = () => {
       // const data = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`)
       const data = await fetch(url);
       const json = await data.json();
-    //   console.log(json);
+      console.log(json);
       setNews(json?.articles);
       setNewsCopy(json?.articles); // FOR READING NEWS
 
