@@ -5,7 +5,8 @@ import { useOutletContext, useParams } from 'react-router-dom';
 const pageSize=21;
 const page =1;
 const country='us';
-const apiKey = import.meta.env.VITE_API_KEY;
+// const apiKey = import.meta.env.VITE_API_KEY;
+const apiKey='72de93b59abd49d09f3d8543e914cfa3'
 const DataFetch = () => {
     
   const { setNewsCopy } = useOutletContext(); // FOR READING NEWS
