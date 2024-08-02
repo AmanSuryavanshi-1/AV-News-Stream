@@ -23,7 +23,7 @@ const AppLayout = () => {
                 pauseReading={pauseReading}
                 resumeReading={resumeReading}
                 isPaused={isPaused}
-                hasArticles={newsCopy.length > 0} 
+                // hasArticles={newsCopy.length > 0} 
             />
             <Outlet context={{ setNewsCopy, newsCopy, activeArticleIndex }} />
             {/* <Footer/> */}

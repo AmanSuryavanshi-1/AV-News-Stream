@@ -3,10 +3,6 @@ import { FaUser, FaCalendarAlt, FaImage } from 'react-icons/fa'
 import useFallbackImage from '../utils/useFallbackImage';
 
 const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, source, date, isActive }) => {
-  // Function to truncate text
-  const truncate = (str, n) => {
-    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
-  };
 
   // Default descriptions
   const defaultDescriptions = [
@@ -21,7 +17,7 @@ const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, 
 
   // Function to get a random default description
   const getDefaultDescription = () => {
-    const randomIndex = Math.floor(Math.random() * defaultDescriptions.length);
+    const randomIndex = Math.floor(Math.random() * 7);
     return defaultDescriptions[randomIndex];
   };
 
@@ -48,9 +44,9 @@ const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, 
         </div>
       </figure>
       <div className="p-4 card-body">
-        <h2 className="mb-2 text-xl font-bold card-title line-clamp-2">{truncate(title, 100)}</h2>
-        <p className="mb-4 text-sm text-gray-600 line-clamp-3">
-          {truncate(displayDescription, 180)}
+        <h2 className="mb-2 text-xl font-bold card-title line-clamp-3">{title}</h2>
+        <p className="mb-4 text-sm text-gray-600 line-clamp-5">
+          {displayDescription}
         </p>
         <div className="flex items-center justify-between mb-4 text-xs text-gray-500">
           <span className="flex items-center">
