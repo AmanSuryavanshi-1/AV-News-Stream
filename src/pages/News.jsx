@@ -6,7 +6,7 @@ import NavbarCategorySearch from '../Components/NavbarCategorySearch'
 import DataFetch from '../utils/DataFetch';
 
 const News = ( ) =>{
-  const { newsCopy , activeArticleIndex } = useOutletContext(); // for speech
+  const { newsCopy , activeArticleIndex } = useOutletContext(); // for speech & displaying
 
   const { loading } = DataFetch();  
   const { category } = useParams();
