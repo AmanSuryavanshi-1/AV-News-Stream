@@ -24,9 +24,15 @@ const DataFetch = () => {
       }
       const json = await data.json();
       // console.log(json);
-      setNews(json?.articles || []);
-      setNewsCopy(json?.articles || []); // FOR DISPLAYING & READING NEWS 
-
+      // Showing articles with valid image URLs on the top
+      const sortedArticles = json?.articles?.sort((a, b) => {
+        if (a.urlToImage && !b.urlToImage) return -1;
+        if (!a.urlToImage && b.urlToImage) return 1;
+        return 0;
+      }) || [];
+      
+      setNews(sortedArticles || []);
+      setNewsCopy(sortedArticles || []); // FOR DISPLAYING & READING NEWS 
       setLoading(false);
     } catch (error) {
       console.error("Error fetching news:", error);
