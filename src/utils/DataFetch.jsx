@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useOutletContext, useParams } from 'react-router-dom';
 
-
-// const pageSize=21;
-// const page =1;
-// const country='us';
-// const apiKey = import.meta.env.VITE_API_KEY;
 const DataFetch = () => {
     
   const { setNewsCopy } = useOutletContext(); // FOR READING NEWS
@@ -17,7 +12,6 @@ const DataFetch = () => {
 
     try{  
       // let url = `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
-      //  const response = await fetch('http://localhost:3001/api/news?category=entertainment');
       // If there's is category then appending that in link else it will show top headlines
       let url = '/api/news';
       if(category)[
@@ -29,9 +23,9 @@ const DataFetch = () => {
         throw new Error(`HTTP error! status: ${data.status}`);
       }
       const json = await data.json();
-      console.log(json);
+      // console.log(json);
       setNews(json?.articles || []);
-      setNewsCopy(json?.articles || []); // FOR READING NEWS
+      setNewsCopy(json?.articles || []); // FOR DISPLAYING & READING NEWS 
 
       setLoading(false);
     } catch (error) {

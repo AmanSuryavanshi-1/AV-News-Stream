@@ -42,7 +42,7 @@ const News = ( ) =>{
                 newsUrl={i.url}
                 author={i.author}
                 date={i.publishedAt}
-                source={i.source.name}
+                source={i.source?.name}
                 isActive={index === activeArticleIndex}
               />
             ))}

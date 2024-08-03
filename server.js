@@ -11,7 +11,7 @@ app.use(cors());
 const API_KEY = process.env.VITE_API_KEY;
 const pageSize = 21;
 const page = 1;
-const country = 'us';
+const country = 'in';
 
 app.get('/api/news', async (req, res) => {
     const { category } = req.query;

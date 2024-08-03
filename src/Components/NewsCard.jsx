@@ -4,6 +4,7 @@ import useFallbackImage from '../utils/useFallbackImage';
 
 const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, source, date, isActive }) => {
 
+  // console.log(source);
   // Default descriptions
   const defaultDescriptions = [
     "Stay informed with the latest updates on this developing story. Our news team is working to bring you more details as they become available.",
@@ -40,7 +41,7 @@ const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, 
           className="object-cover w-full h-full"
         />
         <div className="absolute px-2 py-1 text-xs font-bold rounded-full top-2 left-2 badge badge-primary">
-          {source || 'Google News'}
+          {source == 0 ? 'AV News': source }
         </div>
       </figure>
       <div className="p-4 card-body">
