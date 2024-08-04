@@ -23,12 +23,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[90%] p-4 font-sans bg-primary-bgColor">
-      <div className="relative overflow-hidden mt-8 rounded-3xl shadow-2xl w-full max-w-[58rem] md:h-[28rem]">
+    <div className="flex items-center justify-center h-[90%] p-4 font-sans bg-primary-bgColor">
+      <div className="relative mt-8 shadow-2xl w-full max-w-[58rem] md:h-[28rem]">
         <div className="absolute top-0 w-full h-full transition-all ease-in-out duration-600">
-          <div className="grid h-full grid-cols-1 md:grid-cols-2">
+          <div className="grid h-full grid-cols-1 md:grid-cols-2 max-md:gap-12">
             {/* Contact Info */}
-            <div className="flex flex-col px-12 py-8 bg-gradient-to-br from-primary-yellow to-primary-light text-primary-dark md:rounded-l-4xl">
+            <div className="flex flex-col px-12 py-8 bg-gradient-to-br from-primary-yellow to-primary-light text-primary-dark md:rounded-l-3xl max-md:rounded-3xl">
               <h2 className="mb-6 font-serif text-3xl font-bold text-center">Get in Touch</h2>
               <div className="flex flex-col justify-center flex-grow space-y-10">
                 <ContactCard
@@ -49,7 +49,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <form ref={form} onSubmit={sendEmail} className="flex flex-col px-12 py-8 bg-primary-dark md:rounded-r-3xl">
+            <form ref={form} onSubmit={sendEmail} className="flex flex-col px-12 py-8 bg-primary-dark md:rounded-r-3xl max-md:rounded-3xl">
               <h2 className="mb-6 font-serif text-3xl font-bold text-center text-primary-white">Send us a message</h2>
               <div className="flex flex-col justify-center flex-grow">
                 <Input name="name" placeholder="Your Full Name" />
@@ -63,7 +63,7 @@ const Contact = () => {
                 ></textarea>
                 <button
                   type="submit"
-                  className="flex items-center justify-center px-4 py-2 mt-2 text-xs font-semibold tracking-wide uppercase transition-all duration-300 rounded-lg cursor-pointer text-primary-dark bg-primary-yellow hover:bg-yellow-400 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                  className="flex items-center justify-center px-8 py-2 mx-auto mt-2 text-xs font-semibold tracking-wide uppercase transition-all duration-300 rounded-lg cursor-pointer text-primary-dark bg-primary-yellow hover:bg-yellow-400 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
                 >
                   Send Message
                   <BsSend className="ml-2 text-base" />
