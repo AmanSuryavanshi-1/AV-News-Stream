@@ -14,6 +14,7 @@ const Auth = () => {
     <div className="flex items-center justify-center h-[90%] p-4 font-sans bg-primary-bgColor">
       <div className={`relative mt-5 overflow-hidden bg-primary-dark rounded-3xl shadow-xl w-full max-w-[768px] min-h-[480px] ${isActive ? 'active' : ''}`}>
         <div className="absolute top-0 w-full h-full transition-all ease-in-out duration-600">
+          
           {/* Sign Up Form */}
           <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out ${isActive ? 'translate-x-0 opacity-100 z-20' : 'translate-x-full opacity-0 z-10'} w-1/2 right-0`}>
             <form onSubmit={(e) => handleSubmit(e, 'signup')} className="flex flex-col items-center justify-center h-full px-6 bg-primary-dark sm:px-10 max-md:px-2">
