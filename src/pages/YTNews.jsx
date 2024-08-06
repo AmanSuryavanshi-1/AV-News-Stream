@@ -6,29 +6,41 @@ const YTNews = () => {
   const { videos, loading } = useYTNewsFetch();
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex items-center justify-center h-screen bg-primary-bgColor">
+        <span className="loading loading-spinner loading-lg text-primary-yellow"></span>
+      </div>
+    );
   }
 
   if (videos.length === 0) {
-    return <p>No videos available.</p>;
+    return (
+      <div className="flex items-center justify-center h-screen bg-primary-bgColor text-primary-white">
+        <p className="font-sans text-2xl">No videos available.</p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1>Watch Latest News Videos</h1>
-      <div>
-        {videos.map((video) => (
-          <YTNewsCard
-            key={video.id.videoId}
-            videoId={video.id.videoId}
-            channelTitle={video.snippet.channelTitle}
-            description={video.snippet.description}
-            live={video.snippet.liveBroadcastContent}
-            publishedAt={video.snippet.publishedAt}
-            thumbnail={video.snippet.thumbnails.high.url}
-            title={video.snippet.title}
-          />
-        ))}
+    <div className="min-h-screen font-sans bg-primary-bgColor text-primary-white">
+      <div className="container px-4 py-8 mx-auto">
+        <h1 className="mb-8 font-serif text-3xl font-bold text-center md:text-4xl lg:text-5xl text-primary-yellow">
+          Watch Latest News Videos
+        </h1>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {videos.slice(0, 2).map((video) => (
+            <YTNewsCard
+              key={video.id.videoId}
+              videoId={video.id.videoId}
+              channelTitle={video.snippet.channelTitle}
+              description={video.snippet.description}
+              live={video.snippet.liveBroadcastContent}
+              publishedAt={video.snippet.publishedAt}
+              thumbnail={video.snippet.thumbnails.high.url}
+              title={video.snippet.title}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
