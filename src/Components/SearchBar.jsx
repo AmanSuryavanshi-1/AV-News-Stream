@@ -5,7 +5,7 @@ import { useOutletContext } from 'react-router-dom';
 const SearchBar = () => {
   const [searchText, setSearchText] = useState("");
   const { setNewsCopy } = useOutletContext(); // FOR DISPLAYING & READING NEWS
-    // const {news = []} = DataFetch();   // By this we will get categoryWise news 
+  //   const {news = []} = DataFetch();   // By this we will get categoryWise news 
 
   //   Taking required news data 
 
@@ -32,20 +32,7 @@ const SearchBar = () => {
   //   useEffect(()=>{
   //     searchData();
   //   },[searchText]);
-  
-  //   const handleSearch = async() =>{
-  //     await searchData();
-  //     if (searchNewsData && searchNewsData.length > 0) {
-  //       const searchedNews = searchNewsData.filter((i) => 
-  //         {return i.title?.toLowerCase().includes(searchText.toLowerCase())
-  //           || i.description?.toLowerCase().includes(searchText.toLowerCase())
-  //           || i.author?.toLowerCase().includes(searchText.toLowerCase())
-  //         });
-  //         setNewsCopy(searchedNews);
-  //     } else {
-  //       setNewsCopy([]);  // Set to empty array if no results
-  //     }
-  //   }
+
 
     const handleSearch = async () => {
       if (searchText) {

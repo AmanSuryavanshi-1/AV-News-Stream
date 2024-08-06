@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
-const API_KEY = process.env.VITE_API_KEY;
+const API_KEY = process.env.VITE_NEWS_API_KEY;
 const pageSize = 24;
 const page = 1;
 const country = 'in';

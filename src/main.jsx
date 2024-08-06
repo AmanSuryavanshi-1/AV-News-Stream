@@ -10,6 +10,7 @@ import Saved from './pages/Saved.jsx';
 import Notes from './pages/Notes.jsx';
 import Auth from './pages/Auth.jsx';
 import AppLayout from './pages/AppLayout.jsx';
+import YTNews from './pages/YTNews.jsx';
 
 
 const appRouter = createBrowserRouter([
@@ -24,7 +25,8 @@ const appRouter = createBrowserRouter([
       { path: "/auth", element: <Auth /> },
       { path: "/contact", element: <Contact /> },
       { path: "/saved", element: <Saved /> }, //add news to fav to read it later
-      { path: "/news/:category", element: <News /> }
+      { path: "/news/:category", element: <News /> },
+      { path: "/watchNews", element: <YTNews/> }
      ],
     errorElement: <Error />,
   },
