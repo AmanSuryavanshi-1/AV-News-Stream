@@ -20,6 +20,9 @@ export default {
         'sans': ['Poppins', 'sans-serif'],
         'serif': ['Cinzel', 'serif'],
       },
+      animation: {
+        profile: 'profile__animate 8s ease-in-out infinite 1s',
+      },
     },
   },
   plugins: [

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import mainLogo from '../../assets/AV_Main Logo.png';
-import { LiaInfoSolid } from "react-icons/lia";
 import { LuLogIn } from "react-icons/lu";
-import { CiBookmark, CiLogout } from "react-icons/ci";
-import { IoCallOutline } from "react-icons/io5";
+import { CiLogout } from "react-icons/ci";
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { MdOutlineNewspaper } from "react-icons/md";
+import { MdBookmarkBorder, MdOutlineNewspaper, MdOutlineOndemandVideo } from "react-icons/md";
 import { TbNotes } from 'react-icons/tb';
+import { IoMdContact, IoMdInformationCircleOutline } from 'react-icons/io';
 
 const Navbar = () => {
   const [btnName, setBtnName] = useState("Login");
@@ -29,10 +28,11 @@ const Navbar = () => {
 
   const navLinks = [
     { title: 'News', url: '/', icon: <MdOutlineNewspaper  className="w-5 h-5" /> },
-    { title: 'About', url: '/about', icon: <LiaInfoSolid className="w-5 h-5" /> },
-    { title: 'Contact', url: '/contact', icon: <IoCallOutline className="w-5 h-5" /> },
+    { title: 'Watch News', url: '/watchNews', icon: <MdOutlineOndemandVideo  className="w-5 h-5" /> },
     { title: 'Notes', url: '/notes', icon: <TbNotes  className="w-5 h-5" /> },
-    { title: 'Saved News', url: '/saved', icon: <CiBookmark  className="w-5 h-5" /> },
+    { title: 'Saved News', url: '/saved', icon: <MdBookmarkBorder  className="w-5 h-5" /> },
+    { title: 'About', url: '/about', icon: <IoMdInformationCircleOutline  className="w-5 h-5" /> },
+    { title: 'Contact', url: '/contact', icon: <IoMdContact className="w-5 h-5" /> },
     // <Link
     //           to="/saved"
     //           className="flex items-center ml-4 transition-colors duration-200 text-primary-light hover:text-primary-yellow"

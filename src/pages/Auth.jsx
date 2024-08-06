@@ -11,7 +11,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-[90%] p-4 font-sans bg-primary-bgColor">
+    <div className="flex mb-8 items-center justify-center h-[90%] p-4 font-sans bg-primary-bgColor">
       <div className={`relative mt-5 overflow-hidden bg-primary-dark rounded-3xl shadow-xl w-full max-w-[768px] min-h-[480px] ${isActive ? 'active' : ''}`}>
         <div className="absolute top-0 w-full h-full transition-all ease-in-out duration-600">
           

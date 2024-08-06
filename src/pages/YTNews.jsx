@@ -28,7 +28,7 @@ const YTNews = () => {
           Watch Latest News Videos
         </h1>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {videos.slice(0, 2).map((video) => (
+          {videos.map((video) => (
             <YTNewsCard
               key={video.id.videoId}
               videoId={video.id.videoId}

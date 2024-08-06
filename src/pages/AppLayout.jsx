@@ -4,6 +4,7 @@ import Navbar from "../Components/Navbar";
 import TTSControl from "../Components/TTSControl";
 import { useState } from "react";
 import useTTS from "../utils/useTTS";
+import Footer from './Footer';
 const AppLayout = () => {
     const [newsCopy, setNewsCopy] = useState([]);
     const {
@@ -27,7 +28,7 @@ const AppLayout = () => {
                 hasArticles={newsCopy.length > 0} 
             />
             <Outlet context={{ setNewsCopy, newsCopy, activeArticleIndex }} />
-            {/* <Footer/> */}
+            <Footer/>
         </div>
     );
 }
