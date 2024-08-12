@@ -1,52 +1,68 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useOutletContext, useParams } from 'react-router-dom';
 
 const DataFetch = () => {
-    
-  const { setNewsCopy } = useOutletContext(); // FOR READING NEWS
+  const { setNewsCopy } = useOutletContext();
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { category } = useParams();
 
-    const [news, setNews] = useState([]);
-    const [loading, setLoading] = useState(true); 
-    const { category } = useParams();  
-  const NewsData = async() =>{
+  const fetchAPI = async (url) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  };
 
-    try{  
-      // let url = `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
-      // If there's is category then appending that in link else it will show top headlines
-      let url = '/api/news';
-      if(category)[
-        url += `?category=${category}`
-      ]
-      // const data = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`)
-      const data = await fetch(url);
-      if (!data.ok) {
-        throw new Error(`HTTP error! status: ${data.status}`);
-      }
-      const json = await data.json();
-      // console.log(json);
-      // Showing articles with valid image URLs on the top
-      const sortedArticles = json?.articles?.sort((a, b) => {
+  const fetchNewsapiAPI = async () => {
+    let url = '/api/news';
+    if (category) {
+      url += `?category=${category}`;
+    }
+    const json = await fetchAPI(url);
+    return json.articles || [];
+  };
+
+  const fetchGNewsAPI = async () => {
+    const apikey = '9dc8fb63eb67d27205e56edc0cd6742e';
+    const url = `https://gnews.io/api/v4/top-headlines?category=${category || 'general'}&lang=en&country=in&max=9&apikey=${apikey}`;
+    const json = await fetchAPI(url);
+    return json.articles || [];
+  };
+
+  const NewsData = async () => {
+    try {
+      const [NewsOrgArticles, GNewsArticles] = await Promise.all([
+        fetchNewsapiAPI(),
+        fetchGNewsAPI()
+      ]);
+
+      const mergedArticles = [...GNewsArticles, ...NewsOrgArticles];
+
+      // Sort articles with valid image URLs on top
+      const sortedArticles = mergedArticles.sort((a, b) => {
         if (a.urlToImage && !b.urlToImage) return -1;
         if (!a.urlToImage && b.urlToImage) return 1;
         return 0;
-      }) || [];
-      
-      setNews(sortedArticles || []);
-      setNewsCopy(sortedArticles || []); // FOR DISPLAYING & READING NEWS 
+      });
+
+      console.log(sortedArticles);
+      setNews(sortedArticles);
+      setNewsCopy(sortedArticles);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching news:", error);
-      setNews([])
+      setNews([]);
       setLoading(false);
     }
   };
 
-  
-  useEffect(()=>{
+  useEffect(() => {
     NewsData();
-  },[category, setNewsCopy]);
+  }, [category, setNewsCopy]);
 
-  return {news, loading}
-}
+  return { news, loading };
+};
 
-export default DataFetch
+export default DataFetch;

@@ -55,7 +55,7 @@ const SearchBar = () => {
 
 
   return (
-    <div  className="flex items-center w-full mt-2 md:mt-0 md:w-auto">
+    <div  className="flex items-center w-full max-sm:ml-4 md:w-auto">
       <input
         type="text"
         placeholder="Search..."
@@ -63,7 +63,7 @@ const SearchBar = () => {
         onChange={(e) => setSearchText(e.target.value)}
         className="w-full px-3 py-1 rounded-l-full bg-primary-grey text-primary-light focus:outline-none"
       />
-      <button type="submit" className="px-6 py-2 transition-colors duration-200 rounded-r-full bg-primary-yellow text-primary-dark hover:bg-primary-light"
+      <button type="submit" className="px-4 py-2 transition-colors duration-200 rounded-r-full bg-primary-grey text-primary-light hover:bg-primary-yellow"
         onClick={handleSearch}
       >
         <FaSearch className="w-4 h-4" />

@@ -36,13 +36,13 @@ const News = ( ) =>{
             {newsCopy.map((i, index) => (
               <NewsCard 
                 key={index}
-                // title={i.title ? i.title : ' '}
+                title={i.title ? i.title : ' '}
                 description={i.description ? i.description.slice(0, 180) : ' '}
-                imageUrl={i.urlToImage}
-                newsUrl={i.url}
+                imageUrl={i.urlToImage || i.image}
+                newsUrl={i.url || i.source.url}
                 author={i.author}
                 date={i.publishedAt}
-                source={i.source?.name}
+                source={i.source.name}
                 isActive={index === activeArticleIndex}
               />
             ))}
