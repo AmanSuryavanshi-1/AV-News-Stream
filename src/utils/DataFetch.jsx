@@ -25,7 +25,7 @@ const DataFetch = () => {
   };
 
   const fetchGNewsAPI = async () => {
-    const apikey = '9dc8fb63eb67d27205e56edc0cd6742e';
+    const apikey = import.meta.env.VITE_GNEWS_API_KEY;
     const url = `https://gnews.io/api/v4/top-headlines?category=${category || 'general'}&lang=en&country=in&max=9&apikey=${apikey}`;
     const json = await fetchAPI(url);
     return json.articles || [];
