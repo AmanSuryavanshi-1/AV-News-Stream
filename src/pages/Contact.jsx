@@ -23,7 +23,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex items-center mb-12 justify-center h-[90%] p-4 font-sans bg-primary-bgColor">
+    <div className="flex items-center mb-12 justify-center h-[90%] p-8 font-sans bg-primary-bgColor">
       <div className="relative mt-5 shadow-2xl w-full max-w-[58rem] md:h-[28rem]">
         <div className="absolute top-0 w-full h-full transition-all ease-in-out duration-600">
           <div className="grid h-full grid-cols-1 md:grid-cols-2 max-md:gap-12">

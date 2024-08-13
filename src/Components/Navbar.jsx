@@ -49,7 +49,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="font-sans shadow-lg bg-gradient-to-r from-primary-bgColor to-primary-bgColor-light">
+    // <nav className="font-sans shadow-lg bg-primary-dark">
+    <nav className="font-sans">
       <div className="container flex items-center justify-between px-4 py-3 mx-auto">
         <Link to="/" className="flex items-center">
           <img className="w-24 h-12 transition-transform duration-300 hover:scale-105" loading="eager" src={mainLogo} alt="Logo" />
