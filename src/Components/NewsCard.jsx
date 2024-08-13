@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaUser, FaCalendarAlt, FaImage } from 'react-icons/fa'
+import { FaUser, FaCalendarAlt, FaImage, FaExternalLinkAlt, FaBookmark, FaTrash } from 'react-icons/fa'
 import useFallbackImage from '../utils/useFallbackImage';
 import { useDispatch } from 'react-redux';
 import { addArticle, removeArticle } from '../utils/SaveSlice';
@@ -56,50 +56,73 @@ const NewsCard = ({ newsData, activeArticleIndex,isArticleSaved }) => {
   const imageUrl = urlToImage || image;
   const newsUrl = url || (source && source.url);
     return(
-        <div key={index}  className={`overflow-hidden transition-all duration-300 shadow-xl bg-primary-grey card hover:shadow-2xl ${
-          index === activeArticleIndex ? 'ring-4 ring-primary-yellow scale-105' : ''
-        }`}>
-          <figure className="relative h-48">
-            <img
-              src={imageUrl || ""}
-              alt={title}
-              onError={handleImageError} 
-              loading='lazy'
-              className="object-cover w-full h-full"
-            />
-            <div className="absolute px-2 py-1 text-xs font-bold rounded-full top-2 left-2 badge badge-primary">
+      <div key={index} className={`font-sans card bg-primary-grey shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden ${
+        index === activeArticleIndex ? 'ring-4 ring-primary-yellow scale-105' : ''
+      }`}>
+        <figure className="relative">
+          <img
+            src={imageUrl || ""}
+            alt={title}
+            onError={handleImageError}
+            loading='lazy'
+            className="object-cover w-full h-64"
+          />
+          <div className="absolute px-3 py-2 font-bold top-3 left-3 badge bg-primary-yellow text-primary-dark">
             {source && typeof source === 'object' ? (source.name || 'Unknown Source') : (source || 'Unknown Source')}
-            </div>
-          </figure>
-          <div className="p-4 card-body">
-            <h2 className="mb-2 text-xl font-bold card-title line-clamp-3">{title}</h2>
-            <p className="mb-4 text-sm text-gray-600 line-clamp-5">
-              {displayDescription}
-            </p>
-            <div className="flex items-center justify-between mb-4 text-xs text-gray-500">
-              <span className="flex items-center">
-                <FaUser className="w-4 h-4 mr-1" />
-                {author || 'Unknown Author'}
-              </span>
-              <span className="flex items-center">
-                <FaCalendarAlt className="w-4 h-4 mr-1" />
-                {new Date(publishedAt).toLocaleDateString()}
-              </span>
-            </div>
-            <div className="justify-end card-actions">
-              <a href={newsUrl} target="_blank" rel="noopener noreferrer" className="normal-case btn btn-primary btn-sm">
-                Read More
-              </a>
-              <button 
-              className={`px-4 py-1 text-sm font-semibold transition-all duration-300 rounded-md shadow-md border-2 border-primary-light
-                ${isArticleSaved
-                    ? "bg-red-500 hover:bg-red-600" 
-                    : "bg-green-500 hover:bg-green-600"
-                } text-white`}
-              onClick={()=> isArticleSaved ? handleRemoveClick(article) : handleAddClick(article)}>{isArticleSaved ?  "REMOVE" : "Save"}</button>
-            </div>
+          </div>
+        </figure>
+        
+        <div className="p-5 card-body">
+          <h2 className="mb-3 font-serif text-2xl font-bold card-title line-clamp-2 text-primary-white">{title}</h2>
+          <p className="mb-4 text-sm text-primary-light line-clamp-3">{displayDescription}</p>
+          
+          <div className="flex items-center justify-between mb-4 text-xs text-primary-light">
+            <span className="flex items-center">
+              <FaUser className="w-3 h-3 mr-2" />
+              {author || 'Unknown Author'}
+            </span>
+            <span className="flex items-center">
+              <FaCalendarAlt className="w-3 h-3 mr-2" />
+              {new Date(publishedAt).toLocaleDateString()}
+            </span>
+          </div>
+          
+          <div className="items-center justify-between mt-auto card-actions">
+            <a 
+              href={newsUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-2 normal-case transition-colors duration-300 rounded-2xl btn bg-primary-yellow hover:bg-primary-light text-primary-dark hover:text-primary-dark btn-sm"
+            >
+              Read More
+              <FaExternalLinkAlt className="w-3 h-3" />
+            </a>
+            <button
+              className={`btn btn-sm normal-case flex items-center gap-2 
+                ${isArticleSaved 
+                  ? "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-red-500" 
+                  : "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-green-500"
+                } border-1 px-4 py-2 rounded-3xl shadow-md hover:shadow-lg`}
+              onClick={() => isArticleSaved ? handleRemoveClick(article) : handleAddClick(article)}
+            >
+            {isArticleSaved ? (
+              <>
+                <span className='text-red-600'>Remove</span>
+                <FaTrash className="w-3 h-3 text-red-600" />
+              </>
+            ) : (
+              <>
+                <span className='text-green-500'>Save</span>
+                <FaBookmark className="w-3 h-3 text-green-500" />
+              </>
+            )}
+          </button>
+              {/* {isArticleSaved ? "Remove" : "Save"}
+              <FaBookmark className="w-3 h-3" />
+            </button> */}
           </div>
         </div>
+      </div>  
       );
     })}
     </>

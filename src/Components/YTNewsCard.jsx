@@ -42,8 +42,8 @@ const YTNewsCard = ({ videoId, title, description, thumbnail, channelTitle, publ
         <h2 className="mb-2 font-serif text-xl font-bold text-primary-yellow line-clamp-2">
           {title}
         </h2>
-        <p className="mb-4 text-sm text-primary-light line-clamp-3">{description}</p>
-        <div className="flex items-center justify-between text-xs text-primary-light">
+        <p className="h-12 mb-2 text-sm text-primary-light line-clamp-3 max-sm:h-fit">{description}</p>
+        <div className="flex items-center justify-between mt-2 text-xs text-primary-light">
           <span className="flex items-center px-2 py-1 rounded bg-primary-dark">
             <BsPersonVideo3 className="mr-1" />
             {channelTitle}

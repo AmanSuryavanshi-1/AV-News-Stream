@@ -14,7 +14,7 @@ const About = () => {
   };  
 
   return (
-    <div className="relative flex flex-col items-center min-h-screen">
+    <div className="relative flex flex-col p-8 items-center h-[90%]">
         <button
           onClick={toggleHeaderAndAbout}
           //   {showHeaderAndAbout ? "View Profile" :  "Hide Profile"}
