@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import mainLogo from '../../assets/AV_Main Logo.png';
-import { LuLogIn } from "react-icons/lu";
-import { CiLogout } from "react-icons/ci";
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FiLogIn, FiLogOut, FiMenu, FiX } from "react-icons/fi";
 import { MdBookmarkBorder, MdOutlineNewspaper, MdOutlineOndemandVideo } from "react-icons/md";
 import { TbNotes } from 'react-icons/tb';
-import { IoMdContact, IoMdInformationCircleOutline } from 'react-icons/io';
-import { useSelector } from 'react-redux';
+import { IoInformationCircleOutline, IoPersonOutline } from 'react-icons/io5';
 
 const Navbar = () => {
   const [btnName, setBtnName] = useState("Login");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
   const [showModal, setShowModal] = useState(false);
-
-  const savedArticles = useSelector((store) => store.save.savedArticles);
-  console.log(savedArticles);
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,69 +26,68 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { title: 'News', url: '/', icon: <MdOutlineNewspaper  className="w-5 h-5" /> },
-    { title: 'Watch News', url: '/watchNews', icon: <MdOutlineOndemandVideo  className="w-5 h-5" /> },
-    { title: 'Notes', url: '/notes', icon: <TbNotes  className="w-5 h-5" /> },
-    { title: 'About', url: '/about', icon: <IoMdInformationCircleOutline  className="w-5 h-5" /> },
-    { title: 'Contact', url: '/contact', icon: <IoMdContact className="w-5 h-5" /> },
-    // <Link
-    //           to="/saved"
-    //           className="flex items-center ml-4 transition-colors duration-200 text-primary-light hover:text-primary-yellow"
-    //         >
-    //           <AiOutlineSave className="w-5 h-5" />
-    //           <span className="ml-1 text-sm">Saved</span>
-    //         </Link>
+    { title: 'News', url: '/', icon: <MdOutlineNewspaper className="w-5 h-5" /> },
+    { title: 'Watch News', url: '/watchNews', icon: <MdOutlineOndemandVideo className="w-5 h-5" /> },
+    { title: 'Notes', url: '/notes', icon: <TbNotes className="w-5 h-5" /> },
+    { title: 'About', url: '/about', icon: <IoInformationCircleOutline className="w-5 h-5" /> },
+    { title: 'Contact', url: '/contact', icon: <IoPersonOutline className="w-5 h-5" /> },
   ];
 
-  return (
-    <nav className="font-sans shadow-md bg-primary-bgColor">
-      <div className="container flex items-center justify-between px-4 py-2 mx-auto">
-        <Link to="/" className="flex items-center">
-          {/* <img className="w-24 h-20 filter invert sepia saturate-200 hue-rotate-60 brightness-110 contrast-100" loading="eager" src={mainLogo} alt="Logo" /> */}
-          <img className="w-24 h-16" loading="eager" src={mainLogo} alt="Logo" /> 
-          {/* <img className="w-40 h-16" loading="eager" src={mainLogo} alt="Logo" />  */}
+  const SavedLink = () => {
+    const savedArticles = useSelector((store) => store.save.savedArticles);
+    return (
+      <Link to="/saved" className="flex items-center px-3 py-2 text-sm font-medium transition-all duration-300 rounded-full text-primary-light hover:bg-primary-yellow hover:text-primary-bgColor group">
+        <MdBookmarkBorder className="w-5 h-5" />
+        <span className="ml-2">Saved</span>
+        {savedArticles.length > 0 && (
+          <span className="inline-flex items-center justify-center w-5 h-5 ml-2 text-xs font-bold transition-all duration-300 rounded-full text-primary-bgColor bg-primary-yellow group-hover:bg-primary-bgColor group-hover:text-primary-yellow">
+            {savedArticles.length}
+          </span>
+        )}
+      </Link>
+    );
+  };
 
+  return (
+    <nav className="font-sans shadow-lg bg-gradient-to-r from-primary-bgColor to-primary-bgColor-light">
+      <div className="container flex items-center justify-between px-4 py-3 mx-auto">
+        <Link to="/" className="flex items-center">
+          <img className="w-24 h-12 transition-transform duration-300 hover:scale-105" loading="eager" src={mainLogo} alt="Logo" />
         </Link>
 
         {!isMobile ? (
           <div className="flex items-center space-x-6">
             {navLinks.map((link, index) => (
-              <Link key={index} to={link.url} className="flex items-center transition-colors duration-200 text-primary-light hover:text-primary-yellow">
+              <Link key={index} to={link.url} className="flex items-center px-3 py-2 text-sm font-medium transition-all duration-300 rounded-full text-primary-light hover:bg-primary-yellow hover:text-primary-bgColor">
                 {link.icon}
-                <span className="ml-1">{link.title}</span>
+                <span className="ml-2">{link.title}</span>
               </Link>          
             ))}
-            <li className="flex items-center px-2 cursor-pointer text-primary-light hover:text-primary-white">
-              <Link to="/saved" className="flex items-center">
-                <MdBookmarkBorder  className="w-5 h-5" /> 
-                Saved ({savedArticles.length})
-              </Link>
-              </li>
+            <SavedLink />
    
             <Link
               to="/auth"
               onClick={() => setBtnName(btnName === "Login" ? "Logout" : "Login")}
-              className="flex items-center transition-colors duration-200 text-primary-light hover:text-primary-yellow"
+              className="flex items-center px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full text-primary-bgColor bg-primary-yellow hover:bg-primary-light hover:text-primary-yellow"
             >
-              {btnName === "Login" ? <LuLogIn className="w-5 h-5" /> : <CiLogout className="w-5 h-5" />}
-              <span className="ml-1">{btnName}</span>
+              {btnName === "Login" ? <FiLogIn className="w-5 h-5" /> : <FiLogOut className="w-5 h-5" />}
+              <span className="ml-2">{btnName}</span>
             </Link>
           </div>
         ) : (
-          <button onClick={toggleModal} className="transition-colors duration-200 text-primary-light hover:text-primary-yellow">
-            <FaBars className="w-6 h-6" />
+          <button onClick={toggleModal} className="p-2 transition-colors duration-300 rounded-full text-primary-light hover:bg-primary-yellow hover:text-primary-bgColor">
+            <FiMenu className="w-6 h-6" />
           </button>
         )}
       </div>
-
 
       {/* Mobile Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="w-4/5 max-w-md p-6 rounded-lg shadow-xl bg-primary-bgColor">
             <div className="flex justify-end mb-4">
-              <button onClick={toggleModal} className="transition-colors duration-200 text-primary-light hover:text-primary-yellow">
-                <FaTimes className="w-6 h-6" />
+              <button onClick={toggleModal} className="p-2 transition-colors duration-300 rounded-full text-primary-light hover:bg-primary-yellow hover:text-primary-bgColor">
+                <FiX className="w-6 h-6" />
               </button>
             </div>
             <div className="flex flex-col space-y-4">
@@ -101,23 +95,24 @@ const Navbar = () => {
                 <Link
                   key={index}
                   to={link.url}
-                  className="flex items-center transition-colors duration-200 text-primary-light hover:text-primary-yellow"
+                  className="flex items-center px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg text-primary-light hover:bg-primary-yellow hover:text-primary-bgColor"
                   onClick={toggleModal}
                 >
                   {link.icon}
-                  <span className="ml-2">{link.title}</span>
+                  <span className="ml-1">{link.title}</span>
                 </Link>
               ))}
+              <SavedLink />
               <Link
                 to="/auth"
                 onClick={() => {
                   setBtnName(btnName === "Login" ? "Logout" : "Login");
                   toggleModal();
                 }}
-                className="flex items-center transition-colors duration-200 text-primary-light hover:text-primary-yellow"
+                className="flex items-center px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg text-primary-bgColor bg-primary-yellow hover:bg-primary-light hover:text-primary-yellow"
               >
-                {btnName === "Login" ? <LuLogIn className="w-5 h-5" /> : <CiLogout className="w-5 h-5" />}
-                <span className="ml-2">{btnName}</span>
+                {btnName === "Login" ? <FiLogIn className="w-5 h-5" /> : <FiLogOut className="w-5 h-5" />}
+                <span className="ml-3">{btnName}</span>
               </Link>
             </div>
           </div>
