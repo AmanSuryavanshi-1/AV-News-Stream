@@ -33,19 +33,10 @@ const News = ( ) =>{
           
      <NavbarCategorySearch />
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {newsCopy.map((i, index) => (
               <NewsCard 
-                key={index}
-                title={i.title ? i.title : ' '}
-                description={i.description ? i.description.slice(0, 180) : ' '}
-                imageUrl={i.urlToImage || i.image}
-                newsUrl={i.url || i.source.url}
-                author={i.author}
-                date={i.publishedAt}
-                source={i.source.name}
-                isActive={index === activeArticleIndex}
+                newsData={newsCopy}
+                activeArticleIndex={activeArticleIndex}
               />
-            ))}
           </div>
         </div>
       )}

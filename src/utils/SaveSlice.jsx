@@ -7,10 +7,18 @@ const saveSlice = createSlice({
     },
     reducers:{
         addArticle: (state, action) => {
-            state.savedArticles.push(action.payload);
+            // Check if the article is already saved to avoid duplicates
+            const isArticleAlreadySaved = state.savedArticles.some(
+                article => article.title === action.payload.title
+            );
+            if (!isArticleAlreadySaved) {
+                state.savedArticles.push(action.payload);
+            }
         },
         removeArticle: (state, action) =>{
-            state.savedArticles.splice(action.payload, 1);
+            state.savedArticles = state.savedArticles.filter(
+                article => article.title !== action.payload.title
+            );
         },
         clearArticles: (state) =>{
             state.savedArticles = [];
