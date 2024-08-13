@@ -5,6 +5,8 @@ import TTSControl from "../Components/TTSControl";
 import { useState } from "react";
 import useTTS from "../utils/useTTS";
 import Footer from './Footer';
+import { Provider } from 'react-redux';
+import appStore from '../utils/AppStore';
 const AppLayout = () => {
     const [newsCopy, setNewsCopy] = useState([]);
     const {
@@ -17,6 +19,7 @@ const AppLayout = () => {
     } = useTTS(newsCopy);
 
     return (
+        <Provider store={appStore}> 
         <div className='min-h-screen bg-primary-bgColor'>
             <Navbar />
             <TTSControl 
@@ -30,6 +33,7 @@ const AppLayout = () => {
             <Outlet context={{ setNewsCopy, newsCopy, activeArticleIndex }} />
             <Footer/>
         </div>
+        </ Provider>
     );
 }
 

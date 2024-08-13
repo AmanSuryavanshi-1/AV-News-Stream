@@ -7,11 +7,15 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdBookmarkBorder, MdOutlineNewspaper, MdOutlineOndemandVideo } from "react-icons/md";
 import { TbNotes } from 'react-icons/tb';
 import { IoMdContact, IoMdInformationCircleOutline } from 'react-icons/io';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const [btnName, setBtnName] = useState("Login");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
   const [showModal, setShowModal] = useState(false);
+
+  const savedArticles = useSelector((store) => store.save.savedArticles);
+  console.log(savedArticles);
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,7 +34,6 @@ const Navbar = () => {
     { title: 'News', url: '/', icon: <MdOutlineNewspaper  className="w-5 h-5" /> },
     { title: 'Watch News', url: '/watchNews', icon: <MdOutlineOndemandVideo  className="w-5 h-5" /> },
     { title: 'Notes', url: '/notes', icon: <TbNotes  className="w-5 h-5" /> },
-    { title: 'Saved News', url: '/saved', icon: <MdBookmarkBorder  className="w-5 h-5" /> },
     { title: 'About', url: '/about', icon: <IoMdInformationCircleOutline  className="w-5 h-5" /> },
     { title: 'Contact', url: '/contact', icon: <IoMdContact className="w-5 h-5" /> },
     // <Link
@@ -58,8 +61,15 @@ const Navbar = () => {
               <Link key={index} to={link.url} className="flex items-center transition-colors duration-200 text-primary-light hover:text-primary-yellow">
                 {link.icon}
                 <span className="ml-1">{link.title}</span>
-              </Link>
+              </Link>          
             ))}
+            <li className="flex items-center px-2 cursor-pointer text-primary-light hover:text-primary-white">
+              <Link to="/saved" className="flex items-center">
+                <MdBookmarkBorder  className="w-5 h-5" /> 
+                Saved ({savedArticles.length})
+              </Link>
+              </li>
+   
             <Link
               to="/auth"
               onClick={() => setBtnName(btnName === "Login" ? "Logout" : "Login")}

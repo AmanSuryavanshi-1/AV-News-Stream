@@ -1,6 +1,8 @@
 import React from 'react'
 import { FaUser, FaCalendarAlt, FaImage } from 'react-icons/fa'
 import useFallbackImage from '../utils/useFallbackImage';
+import { useDispatch } from 'react-redux';
+import { addArticle } from '../utils/SaveSlice';
 
 const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, source, date, isActive }) => {
 
@@ -28,6 +30,11 @@ const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, 
   // Handling Null images
   const handleImageError = useFallbackImage();
 
+  // Adding Save functionality
+  const dispatch = useDispatch(); 
+  const handleAddItemToSaved = (title, description, imageUrl, newsUrl, author, publishedAt, source, date, isActive) =>{
+    dispatch(addArticle({ title, description, imageUrl, newsUrl, author, publishedAt, source, date, isActive }));
+  }
   return (
     <div className={`overflow-hidden transition-all duration-300 shadow-xl bg-primary-grey card hover:shadow-2xl ${
       isActive ? 'ring-4 ring-primary-yellow scale-105' : ''
@@ -63,6 +70,7 @@ const NewsCard = ({ title, description, imageUrl, newsUrl, author, publishedAt, 
           <a href={newsUrl} target="_blank" rel="noopener noreferrer" className="normal-case btn btn-primary btn-sm">
             Read More
           </a>
+          <button onClick={()=> handleAddItemToSaved(title, description, imageUrl, newsUrl, author, publishedAt, source, date, isActive)}>Save</button>
         </div>
       </div>
     </div>
