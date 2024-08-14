@@ -8,7 +8,7 @@ const RepoData = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const responseRes = await fetch('https://api.github.com/repos/AmanSuryavanshi-1/foodah');
+            const responseRes = await fetch('https://api.github.com/repos/AmanSuryavanshi-1/AV-News-Stream');
             const repoJson = await responseRes.json();
             setRepoData(repoJson);
         };
@@ -22,7 +22,7 @@ const RepoData = () => {
     return (
         <div className="max-w-6xl px-4 py-12 mx-auto sm:px-6 lg:px-8 max-sm:w-screen max-md:p-4">
             <h2 className="mt-4 font-serif text-xl font-bold text-center text-primary-light sm:text-4xl lg:text-5xl">
-                Featured Repository: Foodah
+                Featured Repository: AV NEWS STREAM
             </h2>
             <div className="overflow-hidden shadow-sm bg-primary-bgColor rounded-3xl">
                 <div className="px-6 py-8 sm:p-10 max-md:p-2">
