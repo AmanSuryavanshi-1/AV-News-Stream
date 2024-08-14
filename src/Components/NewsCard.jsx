@@ -4,7 +4,7 @@ import useFallbackImage from '../utils/useFallbackImage';
 import { useDispatch } from 'react-redux';
 import { addArticle, removeArticle } from '../utils/SaveSlice';
 
-const NewsCard = ({ newsData, activeArticleIndex,isArticleSaved }) => {
+const NewsCard = ({ newsData, activeArticleIndex, isArticleSaved }) => {
 
   // console.log(source);
   // Default descriptions

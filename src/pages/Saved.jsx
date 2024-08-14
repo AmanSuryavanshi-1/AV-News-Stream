@@ -8,6 +8,7 @@ import YTNewsCard from '../Components/YTNewsCard';
 
 const Saved = () => {
   const savedArticles = useSelector((store) => store.save.savedArticles);
+  const savedVideos = useSelector((store) => store.save.savedVideos);
   const dispatch = useDispatch();
 
   const handleClearCart = () => {
@@ -24,11 +25,11 @@ const Saved = () => {
           </h1>
         </div>
         
-        {savedArticles.length > 0 ? (
+        {savedArticles.length + savedVideos.length > 0 ? (
           <>
             <div className="flex items-center justify-between mb-6">
               <p className="text-lg text-gray-300">
-                You have <span className="font-bold text-primary-yellow">{savedArticles.length}</span> saved article{savedArticles.length !== 1 ? 's' : ''}
+                You have <span className="font-bold text-primary-yellow">{savedArticles.length + savedVideos.length }</span> saved article{savedArticles.length + savedVideos.length !== 1 ? 's' : ''}
               </p>
               <button 
                 onClick={handleClearCart}
@@ -44,8 +45,10 @@ const Saved = () => {
                 activeArticleIndex={-1}
                 isArticleSaved={true}
               />
-              <YTNewsCard
-                newsData={savedArticles}
+            </div>
+            <div className="bg-primary-yellow">
+            <YTNewsCard
+                newsVideos={savedVideos}
                 activeArticleIndex={-1}
                 isArticleSaved={true}
               />

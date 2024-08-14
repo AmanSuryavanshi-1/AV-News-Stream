@@ -4,6 +4,7 @@ const saveSlice = createSlice({
     name: "save",
     initialState: {
         savedArticles: [],
+        savedVideos: [],
     },
     reducers:{
         addArticle: (state, action) => {
@@ -20,11 +21,26 @@ const saveSlice = createSlice({
                 article => article.title !== action.payload.title
             );
         },
+        addVideoArticle: (state, action) => {
+            // Check if the video is already saved to avoid duplicates
+            const isVideoAlreadySaved = state.savedVideos.some(
+                video => video.etag === action.payload.etag
+            );
+            if (!isVideoAlreadySaved) {
+                state.savedVideos.push(action.payload);
+            }
+        },
+        removeVideoArticle: (state, action) =>{
+            state.savedVideos = state.savedVideos.filter(
+                video => video.etag !== action.payload.etag
+            );
+        },  
         clearArticles: (state) =>{
             state.savedArticles = [];
+            state.savedVideos=[];
         }
     }
 }) 
 
-export const { addArticle, removeArticle, clearArticles } = saveSlice.actions;
+export const { addArticle, removeArticle, clearArticles, addVideoArticle, removeVideoArticle } = saveSlice.actions;
 export default saveSlice.reducer

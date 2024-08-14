@@ -35,13 +35,15 @@ const Navbar = () => {
 
   const SavedLink = () => {
     const savedArticles = useSelector((store) => store.save.savedArticles);
+    const savedVideos = useSelector((store) => store.save.savedVideos);
+    const totalSaved = savedArticles.length + savedVideos.length;
     return (
       <Link to="/saved" className="flex items-center px-3 py-2 text-sm font-medium transition-all duration-300 rounded-full text-primary-light hover:bg-primary-yellow hover:text-primary-bgColor group">
         <MdBookmarkBorder className="w-5 h-5" />
         <span className="ml-2">Saved</span>
-        {savedArticles.length > 0 && (
+        {totalSaved > 0 && (
           <span className="inline-flex items-center justify-center w-5 h-5 ml-2 text-xs font-bold transition-all duration-300 rounded-full text-primary-bgColor bg-primary-yellow group-hover:bg-primary-bgColor group-hover:text-primary-yellow">
-            {savedArticles.length}
+            {totalSaved}
           </span>
         )}
       </Link>
