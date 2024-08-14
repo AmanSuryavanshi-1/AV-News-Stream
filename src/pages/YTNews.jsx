@@ -27,11 +27,13 @@ const YTNews = () => {
         <h1 className="mb-8 font-serif text-3xl font-bold text-center md:text-4xl lg:text-5xl text-primary-yellow">
           Watch Latest News Videos
         </h1>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="container px-4 mx-auto">
+          <div className="grid max-w-6xl grid-cols-1 gap-8 mx-auto md:grid-cols-2">
             <YTNewsCard
               newsVideos={videos}
               // activeVideoId={videos[0].id.videoId}
             />
+          </div>
         </div>
       </div>
     </div>
