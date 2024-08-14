@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const HeaderSocial = () => {
   return (
-    <div className="grid gap-6 header_socials">
+    <div className="flex justify-center gap-6 mb-4 md:grid header_socials md:justify-start md:mb-0">
       <Link to="https://www.linkedin.com/in/amansuryavanshi/" target="_blank" rel="noreferrer"
        className="text-2xl text-primary-light"> <BsLinkedin />
        </Link>

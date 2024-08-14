@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import CV from '../../Assets/Aman Suryavanshi Resume latest.pdf';
 import { BsSend } from "react-icons/bs";
 
 const Data = () => {
   return (
-    <div className="text-center md:text-left">
+    <div className="max-w-full px-4 text-center md:text-left md:px-0">
       <h3 className="mb-2 font-serif text-xl font-semibold text-primary-light">Hello, I'm</h3>
-      <h1 className="mb-1 font-serif text-5xl font-bold text-primary-light">
+      <h1 className="mb-1 font-serif text-3xl font-bold md:text-5xl text-primary-light">
         Aman Suryavanshi
           <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"  className="inline-block ml-2">
             <path d="M25.4995 32.0305L31.3495 33.1555L36.1495 8.48051C36.4495 6.83051 35.3995 5.18051 33.8245 4.88051C32.1745 4.58051 30.5995 5.70551 30.2995 7.35551L25.4995 32.0305Z" fill="#FFDD67"></path>
@@ -26,14 +25,14 @@ const Data = () => {
       <span className="absolute left-0 top-3 w-16 h-0.5 bg-primary-light"></span>
         A Tech Geek
       </h3>
-      <p className="max-w-lg mx-auto mb-12 text-justify text-primary-light">
+      <p className="max-w-lg mx-auto mb-8 text-sm text-justify md:mb-12 text-primary-light md:text-base">
         To succeed in an environment of growth and excellence and earn a job which provides me job satisfaction and self-development and help me achieve personal as well as organization goals.
       </p>
-      <div className="flex justify-center gap-5 md:justify-start">
-
-      <Link to ="https://drive.google.com/file/d/1UzAuOZUvvJdwIG_GR-y3e6Ep9sloeaMx/view?usp=drive_link"
-         download className="flex items-center justify-center px-5 py-3 transition-all duration-300 border-2 shadow-sm cursor-pointer rounded-2xl shadow-primary-light bg-primary-bgColor text-primary-light border-primary-yellow hover:bg-primary-light hover:text-primary-bgColor hover:border-transparent">Download CV
-      </Link>
+      <div className="flex flex-col justify-center gap-4 md:flex-row md:gap-5 md:justify-start">
+        <Link to ="https://drive.google.com/file/d/1UzAuOZUvvJdwIG_GR-y3e6Ep9sloeaMx/view?usp=drive_link"
+           download className="flex items-center justify-center px-5 py-3 transition-all duration-300 border-2 shadow-sm cursor-pointer rounded-2xl shadow-primary-light bg-primary-bgColor text-primary-light border-primary-yellow hover:bg-primary-light hover:text-primary-bgColor hover:border-transparent">
+          Download CV
+        </Link>
 
         <Link to="/contact" className="flex items-center justify-center px-5 py-3 transition-all duration-300 border-2 shadow-sm cursor-pointer rounded-2xl shadow-primary-light bg-primary-yellow text-primary-bgColor border-primary-white hover:bg-primary-light hover:text-primary-bgColor hover:border-transparent">
           Say Hello
