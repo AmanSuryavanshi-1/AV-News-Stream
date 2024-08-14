@@ -21,18 +21,20 @@ const TTSControl = ({ readNews, stopReading, pauseReading, resumeReading, hasArt
   return (
     <div className="fixed z-50 bottom-4 right-4">
       {hasArticles && (
-        <div className="flex items-center p-2 space-x-2 bg-white rounded-full shadow-lg dark:bg-gray-800">
+        <div className="flex items-center p-1.5 space-x-1.5 bg-primary-yellow rounded-full shadow-lg">
           <button 
-            className="flex items-center justify-center w-10 h-10 text-gray-700 transition-colors duration-300 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900"
+            className={`flex items-center justify-center w-10 h-10 text-primary-dark transition-colors duration-300 rounded-full ${
+              isPlaying ? 'bg-primary-light hover:bg-primary-white' : 'bg-primary-white hover:bg-primary-light'
+            }`}
             onClick={handlePlayPause}
           >
-            {isPlaying ? <FaPause /> : <FaPlay className="ml-1" />}
+            {isPlaying ? <FaPause className="text-lg" /> : <FaPlay className="text-lg ml-0.5" />}
           </button>
           <button 
-            className="flex items-center justify-center w-10 h-10 text-gray-700 transition-colors duration-300 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-red-900"
+            className="flex items-center justify-center w-10 h-10 transition-colors duration-300 rounded-full text-primary-dark bg-primary-white hover:bg-primary-light"
             onClick={handleStop}
           >
-            <FaStop />
+            <FaStop className="text-lg" />
           </button>
         </div>
       )}

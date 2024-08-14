@@ -117,9 +117,6 @@ const NewsCard = ({ newsData, activeArticleIndex, isArticleSaved }) => {
               </>
             )}
           </button>
-              {/* {isArticleSaved ? "Remove" : "Save"}
-              <FaBookmark className="w-3 h-3" />
-            </button> */}
           </div>
         </div>
       </div>  
