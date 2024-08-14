@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import NewsCard from '../Components/NewsCard';
 import { clearArticles } from '../utils/SaveSlice';
 import { FaArrowRight, FaTrash, FaBookmark, FaNewspaper } from 'react-icons/fa';
+import YTNewsCard from '../Components/YTNewsCard';
 
 const Saved = () => {
   const savedArticles = useSelector((store) => store.save.savedArticles);
@@ -39,6 +40,11 @@ const Saved = () => {
             </div>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               <NewsCard
+                newsData={savedArticles}
+                activeArticleIndex={-1}
+                isArticleSaved={true}
+              />
+              <YTNewsCard
                 newsData={savedArticles}
                 activeArticleIndex={-1}
                 isArticleSaved={true}

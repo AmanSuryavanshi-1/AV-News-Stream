@@ -28,18 +28,10 @@ const YTNews = () => {
           Watch Latest News Videos
         </h1>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {videos.map((video) => (
             <YTNewsCard
-              key={video.id.videoId}
-              videoId={video.id.videoId}
-              channelTitle={video.snippet.channelTitle}
-              description={video.snippet.description}
-              live={video.snippet.liveBroadcastContent}
-              publishedAt={video.snippet.publishedAt}
-              thumbnail={video.snippet.thumbnails.high.url}
-              title={video.snippet.title}
+              newsVideos={videos}
+              // activeVideoId={videos[0].id.videoId}
             />
-          ))}
         </div>
       </div>
     </div>

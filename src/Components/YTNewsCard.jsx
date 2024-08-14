@@ -3,9 +3,10 @@ import { FaPlay, FaYoutube } from 'react-icons/fa';
 import { MdDateRange } from 'react-icons/md';
 import { BsPersonVideo3 } from 'react-icons/bs';
 
-const YTNewsCard = ({ videoId, title, description, thumbnail, channelTitle, publishedAt }) => {
+const YTNewsCard = ({ newsVideos }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
+  console.log("newsVideo:", newsVideos);
   const handlePlay = () => {
     setIsPlaying(true);
   };
@@ -16,9 +17,11 @@ const YTNewsCard = ({ videoId, title, description, thumbnail, channelTitle, publ
   };
 
   return (
-    <div className="overflow-hidden transition-all duration-300 rounded-lg shadow-lg bg-primary-grey hover:shadow-xl">
+    <> 
+    {newsVideos?.map((video,index) => (
+    <div key={index}  className="overflow-hidden transition-all duration-300 rounded-lg shadow-lg bg-primary-grey hover:shadow-xl">
       <div className="relative">
-        <img src={thumbnail} alt={title} className="object-cover w-full h-48" />
+        <img src={video.snippet.thumbnails.high.url} alt={video.snippet.title} className="object-cover w-full h-48" />
         {!isPlaying ? (
           <button
             onClick={handlePlay}
@@ -30,7 +33,7 @@ const YTNewsCard = ({ videoId, title, description, thumbnail, channelTitle, publ
           <iframe
             width="100%"
             height="315"
-            src={`https://www.youtube.com/embed/${videoId}`}
+            src={`https://www.youtube.com/embed/${video.id.videoId}`}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -40,22 +43,23 @@ const YTNewsCard = ({ videoId, title, description, thumbnail, channelTitle, publ
       </div>
       <div className="p-4">
         <h2 className="mb-2 font-serif text-xl font-bold text-primary-yellow line-clamp-2">
-          {title}
+          {video.snippet.title}
         </h2>
-        <p className="h-12 mb-2 text-sm text-primary-light line-clamp-3 max-sm:h-fit">{description}</p>
+        <p className="h-12 mb-2 text-sm text-primary-light line-clamp-3 max-sm:h-fit">{video.snippet.description}</p>
         <div className="flex items-center justify-between mt-2 text-xs text-primary-light">
           <span className="flex items-center px-2 py-1 rounded bg-primary-dark">
             <BsPersonVideo3 className="mr-1" />
-            {channelTitle}
+            {video.snippet.channelTitle}
           </span>
           <span className="flex items-center">
             <MdDateRange className="mr-1" />
-            {formatDate(publishedAt)}
+            {formatDate(video.snippet.publishedAt)}
           </span>
         </div>
+       
       </div>
       <a
-        href={`https://www.youtube.com/watch?v=${videoId}`}
+        href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center block py-2 text-center transition-colors duration-300 bg-primary-dark text-primary-yellow hover:bg-primary-yellow hover:text-primary-dark"
@@ -64,7 +68,31 @@ const YTNewsCard = ({ videoId, title, description, thumbnail, channelTitle, publ
         Watch on YouTube
       </a>
     </div>
+    ))}
+  </>
   );
 };
 
 export default YTNewsCard;
+
+ {/* <button
+              className={`btn btn-sm normal-case flex items-center gap-2 
+                ${isArticleSaved 
+                  ? "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-red-500" 
+                  : "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-green-500"
+                } border-1 px-4 py-2 rounded-3xl shadow-md hover:shadow-lg`}
+              onClick={() => isArticleSaved ? handleRemoveClick(article) : handleAddClick(article)}
+            >
+            {isArticleSaved ? (
+              <>
+                <span className='text-red-600'>Remove</span>
+                <FaTrash className="w-3 h-3 text-red-600" />
+              </>
+            ) : (
+              <>
+                <span className='text-green-500'>Save</span>
+                <FaBookmark className="w-3 h-3 text-green-500" />
+              </>
+            )}
+          </button> */}
+          {/* <p>{video.snippet.liveBroadcastContent}</p> */}
