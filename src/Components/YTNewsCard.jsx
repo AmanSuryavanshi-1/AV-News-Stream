@@ -15,7 +15,10 @@ const YTNewsCard = ({ newsVideos, isArticleSaved }) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
-
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+  };
   const handleRemoveClick = (video) => dispatch(removeVideoArticle(video));
   const handleAddClick = (video) => dispatch(addVideoArticle(video));
 
@@ -62,23 +65,22 @@ const YTNewsCard = ({ newsVideos, isArticleSaved }) => {
               </span>
             </div>
             <div className="flex items-center justify-between mt-2">
-            {video.snippet.liveBroadcastContent === 'live' ? (
-              <span className="flex items-center gap-2 px-3 py-2 text-red-500 normal-case border-red-500 shadow-md btn btn-sm bg-primary-bgColor hover:bg-primary-grey border-1 rounded-3xl hover:shadow-lg">
-                <span className="font-semibold">LIVE</span>
-                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-              </span>
-            ) : (
-              <span className="flex items-center gap-2 px-3 py-2 text-red-500 normal-case border-red-500 shadow-md btn btn-sm bg-primary-bgColor hover:bg-primary-grey border-1 rounded-3xl hover:shadow-lg">
-                <span className="font-semibold">NOT LIVE</span>
-                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-              </span>
-            )}
+                <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                    video.snippet.liveBroadcastContent === 'live'
+                      ? 'bg-red-500 text-white'
+                      : 'bg-gray-200 text-gray-800'
+                  }`}>
+                    {video.snippet.liveBroadcastContent === 'live' ? 'LIVE' : 'NOT LIVE'}
+                  </span>
+                <span className="px-4 py-1 text-xs border-2 border-primary-yellow text-primary-white rounded-xl">
+                    UPLOAD TIME - {formatTime(video.snippet.publishTime)}
+                </span>
               <button
               className={`btn btn-sm normal-case flex items-center gap-2 
                 ${isArticleSaved 
-                  ? "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-red-500" 
-                  : "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-green-500"
-                } border-1 px-4 py-2 rounded-3xl shadow-md hover:shadow-lg`}
+                  ? "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-1 border-red-500" 
+                  : "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-1 border-green-500"
+                } px-4 py-1 rounded-3xl shadow-md hover:shadow-lg`}
               onClick={() => isArticleSaved ? handleRemoveClick(video) : handleAddClick(video)}
             >
             {isArticleSaved ? (
