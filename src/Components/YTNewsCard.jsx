@@ -61,30 +61,38 @@ const YTNewsCard = ({ newsVideos, isArticleSaved }) => {
                 {formatDate(video.snippet.publishedAt)}
               </span>
             </div>
-            <div className="flex items-center justify-between mt-auto">
+            <div className="flex items-center justify-between mt-2">
+            {video.snippet.liveBroadcastContent === 'live' ? (
+              <span className="flex items-center gap-2 px-3 py-2 text-red-500 normal-case border-red-500 shadow-md btn btn-sm bg-primary-bgColor hover:bg-primary-grey border-1 rounded-3xl hover:shadow-lg">
+                <span className="font-semibold">LIVE</span>
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+              </span>
+            ) : (
+              <span className="flex items-center gap-2 px-3 py-2 text-red-500 normal-case border-red-500 shadow-md btn btn-sm bg-primary-bgColor hover:bg-primary-grey border-1 rounded-3xl hover:shadow-lg">
+                <span className="font-semibold">NOT LIVE</span>
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+              </span>
+            )}
               <button
-                className={`btn btn-xs normal-case flex items-center gap-1 
-                  ${isArticleSaved 
-                    ? "bg-primary-dark hover:bg-red-700 text-red-500" 
-                    : "bg-primary-dark hover:bg-green-700 text-green-500"
-                  } border-none px-2 py-1 rounded-full shadow-md hover:shadow-lg transition-all duration-300`}
-                onClick={() => isArticleSaved ? handleRemoveClick(video) : handleAddClick(video)}
-              >
-                {isArticleSaved ? (
-                  <>
-                    <span className="text-xs">Remove</span>
-                    <FaTrash className="w-2 h-2" />
-                  </>
-                ) : (
-                  <>
-                    <span className="text-xs">Save</span>
-                    <FaBookmark className="w-2 h-2" />
-                  </>
-                )}
-              </button>
-              {video.snippet.liveBroadcastContent === 'live' && (
-                <span className="px-2 py-1 text-xs font-semibold text-red-500 bg-red-100 rounded-full">LIVE</span>
-              )}
+              className={`btn btn-sm normal-case flex items-center gap-2 
+                ${isArticleSaved 
+                  ? "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-red-500" 
+                  : "bg-primary-bgColor hover:bg-primary-grey text-primary-light border-green-500"
+                } border-1 px-4 py-2 rounded-3xl shadow-md hover:shadow-lg`}
+              onClick={() => isArticleSaved ? handleRemoveClick(video) : handleAddClick(video)}
+            >
+            {isArticleSaved ? (
+              <>
+                <span className='text-red-600'>Remove</span>
+                <FaTrash className="w-3 h-3 text-red-600" />
+              </>
+            ) : (
+              <>
+                <span className='text-green-500'>Save</span>
+                <FaBookmark className="w-3 h-3 text-green-500" />
+              </>
+            )}
+          </button>
             </div>
           </div>
           <a
