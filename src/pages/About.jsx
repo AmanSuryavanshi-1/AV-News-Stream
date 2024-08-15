@@ -12,7 +12,7 @@ const About = () => {
   const toggleHeaderAndAbout = () => {
     setShowHeaderAndAbout(!showHeaderAndAbout);
   };  
-
+  
   return (
     <div className="relative flex flex-col p-8 items-center h-[90%]">
         <button

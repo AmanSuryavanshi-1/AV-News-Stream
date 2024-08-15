@@ -7,7 +7,7 @@ const useYTNewsFetch = () => {
   const YouTubeNews = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&status&maxResults=2&q=latest+news&type=video&key=${API_KEY}&videoEmbeddable=true`);
+      const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&status&maxResults=8&q=latest+news&type=video&key=${API_KEY}&videoEmbeddable=true`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

@@ -1,17 +1,14 @@
 import React from 'react';
 import useYTNewsFetch from '../utils/useYTNewsFetch';
 import YTNewsCard from '../Components/YTNewsCard';
+import ShimmerYTNews from './ShimmerYTNews';
 
 const YTNews = () => {
   const { videos, loading } = useYTNewsFetch();
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-primary-bgColor">
-        <span className="loading loading-spinner loading-lg text-primary-yellow"></span>
-      </div>
-    );
-  }
+  if (loading) { 
+    return <ShimmerYTNews/>
+    }
 
   if (videos.length === 0) {
     return (
