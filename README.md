@@ -56,7 +56,7 @@
 
     ```bash
     git clone https://github.com/your-username/news-aggregator-app.git
-    cd news-aggregator-app
+    cd AV-News-Stream
     ```
 
 2. Install the necessary dependencies:
