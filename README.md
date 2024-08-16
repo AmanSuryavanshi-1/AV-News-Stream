@@ -10,19 +10,6 @@
 
 - [GitHub Repository](https://github.com/AmanSuryavanshi-1/AV-News-Stream)
 
-## Problem
-
-1. **Limited Interaction:** Traditional news websites restrict user interaction by primarily offering a "read-only" experience.
-2. **Reading Friction:** Users must devote undivided attention to reading, which can be inconvenient and disrupt daily activities.
-3. **Information Overload:** The abundance of news sources makes it challenging for users to filter and access relevant, up-to-date content.
-
-## Solutions
-
-1. **Seamless Text-to-Speech Integration:** AV NewsStream provides a hands-free and effortless browsing experience by utilizing text-to-speech technology. This allows users to multitask while the app reads articles aloud, reducing screen time and eye strain.
-2. **Real-Time Updates:** The app integrates with multiple APIs, including News API and Gnews.io, to ensure users have access to the latest news articles and videos, presented in real time.
-3. **Enhanced User Interaction:** By combining conversational voice control with real-time updates, AV NewsStream revolutionizes the way users interact with news, making the process more engaging and accessible.
-4. **Comprehensive Coverage:** The app aggregates news from over 80,000 sources, providing a holistic view of global events across various categories and interests.
-
 ## Features
 
 - **Conversational Voice Control:** Users can navigate and access content hands-free using Alan AI’s advanced voice recognition capabilities.
@@ -35,9 +22,13 @@
 - **Advanced Search Functionality:** Users can quickly find relevant articles using a robust search feature that scours thousands of sources.
 - **Custom Hooks and Optimizations:** The app includes custom hooks for fallback images and data fetching, ensuring a smooth user experience.
 - **Performance Optimization:** Features lazy loading and shimmer UI to enhance loading speed and visual feedback.
+- **Lazy Loading:** Implemented lazy loading to optimize the loading of the About page and images, ensuring they load efficiently and only when needed.
 - **Error Handling:** A dedicated error component improves the user experience by gracefully handling errors.
 - **Email.js Integration:** Confirms sent messages via the contact form, enhancing communication reliability.
 - **Accessibility Features:** The voice assistant feature ensures news is accessible to all users, including those with visual impairments.
+- **Seamless Text-to-Speech Integration:** Utilizes text-to-speech technology to provide a hands-free and effortless browsing experience, allowing users to multitask while the app reads articles aloud.
+- **Real-Time Updates:** Ensures users have access to the latest news articles and videos, presented in real time.
+- **Enhanced User Interaction:** Combines conversational voice control with real-time updates, revolutionizing the way users interact with news.
 
 ## Tech Stack and Skills Used
 
@@ -59,26 +50,41 @@
 - **Redux Toolkit:** Library for managing state in applications.
 - **APIs:** News API, GNews API, YouTube API, GitHub API for diverse functionalities.
 
-## Challenges and Solutions
+## Installation
 
-### Challenge 1: CORS Issue with [NewsAPI.org](http://newsapi.org/)
+1. Clone the repository:
 
-**Problem:** When trying to fetch data from [NewsAPI.org](http://newsapi.org/) during deployment, a CORS (Cross-Origin Resource Sharing) error occurred. This was because [NewsAPI.org](http://newsapi.org/) only supports CORS for localhost development under their free plan, and deploying it to a different environment caused issues.
+    ```bash
+    git clone https://github.com/your-username/news-aggregator-app.git
+    cd news-aggregator-app
+    ```
 
-**Solution:** The solution involved creating a backend server to handle API requests, thereby bypassing the CORS issue.
+2. Install the necessary dependencies:
 
-1. **Backend Setup:** Installed necessary packages for setting up a backend server.
+    ```bash
+    npm install
+    ```
+
+3. Create a `.env` file in the root directory and add your API keys:
+
+    ```env
+    VITE_API_KEY=your_newsapi_key
+    ```
+
+## Deployment
+
+1. Install backend dependencies:
 
     ```bash
     npm install node-fetch express cors dotenv
     ```
 
-2. **Server Creation:** Created a `server.js` file using Express to handle API requests and enabled CORS.
+2. Create a `server.js` file and add the following code:
 
     ```javascript
     import express from 'express';
     import cors from 'cors';
-    import fetch from 'node-fetch';
+    import fetch from 'node-fetch'; 
     import dotenv from 'dotenv';
 
     dotenv.config();
@@ -95,11 +101,9 @@
         const { category } = req.query;
         try {
             let url = `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${API_KEY}&page=${page}&pageSize=${pageSize}`;
-
             if (category) {
                 url += `&category=${category}`;
             }
-
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -116,115 +120,32 @@
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     ```
 
-3. **Deployment Configuration:** Created a `vercel.json` file to define the build settings and routes for the Vercel deployment.
+3. Create a `vercel.json` file with the following content:
 
     ```json
     {
         "version": 2,
         "builds": [
-            { "src": "server.js", "use": "@vercel/node" },
-            { "src": "dist/**", "use": "@vercel/static" }
+          { "src": "server.js", "use": "@vercel/node" },
+          { "src": "dist/**", "use": "@vercel/static" }
         ],
         "routes": [
-            { "src": "/api/(.*)", "dest": "server.js" },
-            { "src": "/(.*)", "dest": "dist/$1" }
+          { "src": "/api/(.*)", "dest": "server.js" },
+          { "src": "/(.*)", "dest": "dist/$1" }
         ]
     }
     ```
 
-4. **Proxy Configuration:** Configured the proxy settings in `vite.config.js` to ensure the frontend could communicate with the backend server.
+4. Run the backend server:
 
-    ```javascript
-    import { defineConfig } from "vite";
-
-    export default defineConfig({
-        // ... other config
-        server: {
-            proxy: {
-                '/api': 'http://localhost:3001'
-            }
-        }
-    })
+    ```bash
+    npm run start
     ```
 
-5. **Data Fetch Adjustment:** Updated the `dataFetch.js` to fetch data from the newly created server endpoint.
+5. Start the frontend:
 
-### Challenge 2: Search Functionality with CORS
-
-**Problem:** Implementing a search functionality also encountered CORS issues as it required querying the NewsAPI with user input.
-
-**Solution:** Created a CORS-compliant search endpoint in the server and adjusted the search component to use this endpoint.
-
-1. **Server Endpoint for Search:** Added an `/api/search` route in `server.js`.
-
-    ```javascript
-    app.get('/api/search', async (req, res) => {
-        const { query } = req.query;
-        try{
-            const url = `https://newsapi.org/v2/everything?q=${query}&apiKey=${API_KEY}&pageSize=${pageSize}`;
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            res.json(data);
-        } catch (error) {
-            console.error('Error fetching search results:', error);
-            res.status(500).json({ error: 'Failed to fetch search results' });
-        }
-    })
-    ```
-
-2. **Search Component Update:** Updated `SearchBar.jsx` to remove unnecessary filters and directly fetch results when the search button is clicked.
-
-    ```javascript
-    import React, { useState } from 'react'
-    import { FaSearch } from 'react-icons/fa';
-    import { useOutletContext } from 'react-router-dom';
-
-    const SearchBar = () => {
-        const [searchText, setSearchText] = useState("");
-        const { setNewsCopy } = useOutletContext(); // FOR DISPLAYING & READING NEWS
-        const handleSearch = async () => {
-            if (searchText) {
-                try {
-                    const queryUrl = `/api/search?query=${encodeURIComponent(searchText)}`;
-                    const response = await fetch(queryUrl);
-                    const data = await response.json();
-
-                    if (data.articles && data.articles.length > 0) {
-                        setNewsCopy(data.articles);
-                    } else {
-                        setNewsCopy([]);
-                    }
-                } catch (error) {
-                    console.error('Error fetching search results:', error);
-                    setNewsCopy([]);
-                }
-            }
-        }
-
-        return (
-            <div  className="flex items-center w-full mt-2 md:mt-0 md:w-auto">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    className="flex-1 px-4 py-2 mr-2 text-black border border-gray-300 rounded focus:outline-none focus:border-indigo-500"
-                />
-                <button
-                    onClick={handleSearch}
-                    className="px-4 py-2 font-semibold text-white bg-indigo-500 rounded hover:bg-indigo-600"
-                >
-                    <FaSearch className="inline mr-1" />
-                    Search
-                </button>
-            </div>
-        )
-    }
-
-    export default SearchBar
+    ```bash
+    npm run dev
     ```
 
 ## Conclusion
