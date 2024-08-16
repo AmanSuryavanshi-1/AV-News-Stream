@@ -13,6 +13,7 @@
 ## Features
 
 - **Conversational Voice Control:** Users can navigate and access content hands-free using Alan AI’s advanced voice recognition capabilities.
+- **Effortless News Streaming:** Save and revisit news articles and videos for later viewing, powered by Redux Toolkit for seamless user experience.
 - **Integration of Multiple APIs:**
   - **News API:** Offers a wide range of news articles, including archived content.
   - **Gnews.io:** Provides the latest news, ensuring users are always informed.
