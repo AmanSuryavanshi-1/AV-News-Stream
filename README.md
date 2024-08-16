@@ -68,7 +68,9 @@
 3. Create a `.env` file in the root directory and add your API keys:
 
     ```env
-    VITE_API_KEY=your_newsapi_key
+    VITE_YT_API_KEY=your_ytapi_key
+    VITE_NEWS_API_KEY=your_newsapi_key
+    VITE_GNEWS_API_KEY=your_Gnewsapi_key
     ```
 
 ## Deployment
