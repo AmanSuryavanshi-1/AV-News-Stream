@@ -27,7 +27,7 @@ const News = ( ) =>{
         ) : (
         <div className="container px-4 py-8 mx-auto">
           <h1 className="mb-8 font-serif text-3xl font-bold text-center md:text-4xl lg:text-5xl text-primary-yellow">
-            AI NewsMate: Top {capitalizeFirstLetter(category)} Headlines
+            AV NewsStream: Top {capitalizeFirstLetter(category)} Headlines
           </h1>
           
         <NavbarCategorySearch />
