@@ -6,6 +6,11 @@
     ],
     "routes": [
       { "src": "/api/(.*)", "dest": "server.js" },
-      { "src": "/(.*)", "dest": "/" }
+      { "handle": "filesystem" },
+    { 
+      "src": "/(.*)", 
+      "dest": "/index.html",
+      "headers": { "Cache-Control": "no-cache" }
+    }
     ]
   }
