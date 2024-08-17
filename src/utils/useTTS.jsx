@@ -8,7 +8,7 @@ const useTTS = (articles) => {
   const speechRef = useRef(null);
   const voicesRef = useRef([]);
   const location = useLocation();
-
+  
   useEffect(() => {
     const loadVoices = () => {
       voicesRef.current = window.speechSynthesis.getVoices();
