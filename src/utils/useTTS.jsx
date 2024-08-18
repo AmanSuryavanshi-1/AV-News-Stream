@@ -7,6 +7,7 @@ const useTTS = (articles) => {
   const speechRef = useRef(null);
   const voicesRef = useRef([]);
   const location = useLocation();
+<<<<<<< HEAD
 
   const loadVoices = () => {
     voicesRef.current = window.speechSynthesis.getVoices();
@@ -17,6 +18,13 @@ const useTTS = (articles) => {
       voicesRef.current[0] = voicesRef.current[0];
     }
   };
+=======
+  
+  useEffect(() => {
+    const loadVoices = () => {
+      voicesRef.current = window.speechSynthesis.getVoices();
+    };
+>>>>>>> 915e1645d569ef6fd137778f26552c92aa7895a4
 
   useEffect(() => {
     // Load voices and set the voices list whenever they change
