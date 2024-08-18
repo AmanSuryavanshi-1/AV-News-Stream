@@ -1,4 +1,3 @@
-// hooks/useTTS.js
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -9,11 +8,18 @@ const useTTS = (articles) => {
   const voicesRef = useRef([]);
   const location = useLocation();
 
-  useEffect(() => {
-    const loadVoices = () => {
-      voicesRef.current = window.speechSynthesis.getVoices();
-    };
+  const loadVoices = () => {
+    voicesRef.current = window.speechSynthesis.getVoices();
+    // Ensure a consistent voice is selected, or use a default one
+    const preferredVoice = voicesRef.current.find(voice => voice.name === "Google US English");
+    if (!preferredVoice && voicesRef.current.length > 0) {
+      // Set a default fallback voice
+      voicesRef.current[0] = voicesRef.current[0];
+    }
+  };
 
+  useEffect(() => {
+    // Load voices and set the voices list whenever they change
     loadVoices();
     if (window.speechSynthesis.onvoiceschanged !== undefined) {
       window.speechSynthesis.onvoiceschanged = loadVoices;
@@ -45,8 +51,9 @@ const useTTS = (articles) => {
         setActiveArticleIndex(currentIndex);
         speechRef.current = new SpeechSynthesisUtterance();
 
+        // Ensure to use a consistent voice if available, or fallback to default
         speechRef.current.voice = voicesRef.current.find(voice => voice.name === "Google US English") || voicesRef.current[0];
-        speechRef.current.lang = 'en-US';
+        speechRef.current.lang = speechRef.current.voice.lang || 'en-US';
         speechRef.current.pitch = 0.9;
         speechRef.current.rate = 1.1;
         speechRef.current.volume = 0.8;
