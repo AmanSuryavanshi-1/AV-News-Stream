@@ -13,7 +13,7 @@ const News = ( ) =>{
   const { category } = useParams();
   
   useEffect(()=>{
-    document.title = `${capitalizeFirstLetter(category)} - AI NewsMate`;
+    document.title = `${capitalizeFirstLetter(category)} - AV NewsStream`;
   },[category]);
 
   const capitalizeFirstLetter = (string) => {
