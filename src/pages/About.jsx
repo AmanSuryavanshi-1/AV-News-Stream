@@ -6,6 +6,7 @@ import RepoData from '../About/RepoData';
 import GithubCalendar from '../About/GithubCalendar';
 import { GrFormView } from "react-icons/gr";
 import { BiHide } from "react-icons/bi";
+import NotionPage from '../Components/NotionPage';
 const About = () => {
   const [showHeaderAndAbout, setShowHeaderAndAbout] = useState(false);
 
@@ -41,6 +42,7 @@ const About = () => {
       )}
 
       <div>
+        <NotionPage/>
         <RepoData />
         <GithubProfile />
         <GithubCalendar />
