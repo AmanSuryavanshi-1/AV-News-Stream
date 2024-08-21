@@ -29,7 +29,7 @@ const Data = () => {
         To succeed in an environment of growth and excellence and earn a job which provides me job satisfaction and self-development and help me achieve personal as well as organization goals.
       </p>
       <div className="flex flex-col justify-center gap-4 md:flex-row md:gap-5 md:justify-start">
-        <Link to ="https://drive.google.com/file/d/1UzAuOZUvvJdwIG_GR-y3e6Ep9sloeaMx/view?usp=drive_link"
+        <Link to ="https://drive.google.com/file/d/1Xfv_tYMc9UiyYy3QqmPFadyi0xY-p2TI/view?usp=drive_link"
            download className="flex items-center justify-center px-5 py-3 transition-all duration-300 border-2 shadow-sm cursor-pointer rounded-2xl shadow-primary-light bg-primary-bgColor text-primary-light border-primary-yellow hover:bg-primary-light hover:text-primary-bgColor hover:border-transparent">
           Download CV
         </Link>
