@@ -20,7 +20,7 @@ const NavbarCategorySearch = () => {
 
 
   return (
-    <div className="p-2 my-8 bg-primary-dark rounded-3xl">
+    <div className="p-2 my-8 rounded-3xl">
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center">

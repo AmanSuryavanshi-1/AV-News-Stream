@@ -12,6 +12,7 @@ import Auth from './pages/Auth.jsx';
 import AppLayout from './pages/AppLayout.jsx';
 import YTNews from './pages/YTNews.jsx';
 import ShimmerAbout from './pages/ShimmerAbout.jsx';
+import NotionPage from './Components/NotionPage.jsx';
 
 const About = lazy(() => import("./pages/About.jsx"));
 
@@ -34,7 +35,8 @@ const appRouter = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/saved", element: <Saved /> }, //add news to fav to read it later
       { path: "/news/:category", element: <News /> },
-      { path: "/watchNews", element: <YTNews/> }
+      { path: "/watchNews", element: <YTNews/> },
+      { path: "/NotionPage", element: <NotionPage/> },
      ],
     errorElement: <Error />,
   },
