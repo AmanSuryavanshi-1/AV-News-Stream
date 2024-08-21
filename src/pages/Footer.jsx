@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer className="py-12 text-center text-md bg-primary-light text-primary-bgColor">
       <div className="flex justify-center mb-16 space-x-4">
-        <img src={meLogo} loading="lazy" alt="Main Logo" className="object-contain w-16 h-16 mt-2" />
+        <img src={meLogo} loading="lazy" alt="Main Logo" className="object-contain w-16 h-16" />
         <img src={logo} loading='lazy' alt="Logo" className="object-contain w-16 h-16" />
       </div>
 
