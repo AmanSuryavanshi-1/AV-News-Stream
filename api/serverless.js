@@ -1,22 +1,16 @@
+// Vercel Serverless Function Wrapper
+// This ensures proper environment variable handling in Vercel's serverless environment
+
 import express from 'express';
 import cors from 'cors';
 import fetch from 'node-fetch';
-import dotenv from 'dotenv';
-import ApiKeyManager, { ERROR_TYPES } from './src/utils/ApiKeyManager.js';
-
-// Load environment variables
-dotenv.config({ path: '.env.local' });
+import ApiKeyManager, { ERROR_TYPES } from '../src/utils/ApiKeyManager.js';
 
 const app = express();
 app.use(cors());
 
-// Debug: Log environment variables (only first few chars for security)
-console.log('[Server] Environment check:');
-console.log('VITE_NEWS_API_KEY_1:', process.env.VITE_NEWS_API_KEY_1 ? '...' + process.env.VITE_NEWS_API_KEY_1.slice(-4) : 'NOT SET');
-console.log('VITE_NEWS_API_KEY_2:', process.env.VITE_NEWS_API_KEY_2 ? '...' + process.env.VITE_NEWS_API_KEY_2.slice(-4) : 'NOT SET');
-console.log('VITE_NEWS_API_KEY_3:', process.env.VITE_NEWS_API_KEY_3 ? '...' + process.env.VITE_NEWS_API_KEY_3.slice(-4) : 'NOT SET');
-
-// Initialize API Key Manager with all services
+// Initialize API Key Manager with environment variables
+// In Vercel, process.env automatically includes variables set in dashboard
 const apiKeyManager = new ApiKeyManager({
   services: {
     newsapi: {
@@ -25,30 +19,26 @@ const apiKeyManager = new ApiKeyManager({
         process.env.VITE_NEWS_API_KEY_2,
         process.env.VITE_NEWS_API_KEY_3
       ].filter(Boolean),
-      rateLimitCooldown: 3600000,  // 1 hour
-      errorCooldown: 300000,        // 5 minutes
+      rateLimitCooldown: 3600000,
+      errorCooldown: 300000,
       maxRetries: 3
     }
   }
 });
 
-console.log('[Server] ApiKeyManager initialized with', apiKeyManager.getKeyStatus('newsapi')?.totalKeys || 0, 'keys');
+const pageSize = 10;
 
-const pageSize = 10; // Reduced for better pagination
-
-//~ server.js for avoiding CORS requests for fetching news based categories
+// News endpoint
 app.get('/api/news', async (req, res) => {
   const { category, page: requestedPage } = req.query;
   const currentPage = parseInt(requestedPage) || 1;
   let lastError = null;
   
-  // Try all available keys using ApiKeyManager
   while (apiKeyManager.isServiceAvailable('newsapi')) {
     const apiKey = apiKeyManager.getNextKey('newsapi');
     if (!apiKey) break;
 
     try {
-      // Use category-based headlines without country restriction for better results
       let url = `https://newsapi.org/v2/top-headlines?apiKey=${apiKey}&page=${currentPage}&pageSize=${pageSize}`;
       
       if (category) {
@@ -60,27 +50,23 @@ app.get('/api/news', async (req, res) => {
       const response = await fetch(url);
       const data = await response.json();
       
-      // Check if request was successful
       if (response.ok && data.status === 'ok') {
         apiKeyManager.reportSuccess('newsapi', apiKey);
         return res.json(data);
       }
       
-      // Handle rate limit
       if (data.code === 'rateLimited' || response.status === 429) {
         apiKeyManager.reportFailure('newsapi', apiKey, ERROR_TYPES.RATE_LIMIT);
         lastError = 'Rate limit exceeded';
         continue;
       }
       
-      // Handle authentication errors
       if (response.status === 401 || response.status === 403) {
         apiKeyManager.reportFailure('newsapi', apiKey, ERROR_TYPES.AUTH_ERROR);
         lastError = data.message || 'Authentication failed';
         continue;
       }
       
-      // Other API errors
       apiKeyManager.reportFailure('newsapi', apiKey, ERROR_TYPES.API_ERROR);
       lastError = data.message || 'API error';
       
@@ -90,16 +76,14 @@ app.get('/api/news', async (req, res) => {
     }
   }
   
-  // All keys exhausted
-  console.error('[API] All NewsAPI keys exhausted');
   res.status(503).json({ 
     error: 'All API keys exhausted or rate limited',
     details: lastError,
     articles: [] 
   });
-});  
+});
 
-//~ server.js for avoiding CORS requests for fetching news based on search term
+// Search endpoint
 app.get('/api/search', async (req, res) => {
   const { query } = req.query;
   
@@ -112,7 +96,6 @@ app.get('/api/search', async (req, res) => {
   
   let lastError = null;
   
-  // Try all available keys using ApiKeyManager
   while (apiKeyManager.isServiceAvailable('newsapi')) {
     const apiKey = apiKeyManager.getNextKey('newsapi');
     if (!apiKey) break;
@@ -122,27 +105,23 @@ app.get('/api/search', async (req, res) => {
       const response = await fetch(url);
       const data = await response.json();
       
-      // Check if request was successful
       if (response.ok && data.status === 'ok') {
         apiKeyManager.reportSuccess('newsapi', apiKey);
         return res.json(data);
       }
       
-      // Handle rate limit
       if (data.code === 'rateLimited' || response.status === 429) {
         apiKeyManager.reportFailure('newsapi', apiKey, ERROR_TYPES.RATE_LIMIT);
         lastError = 'Rate limit exceeded';
         continue;
       }
       
-      // Handle authentication errors
       if (response.status === 401 || response.status === 403) {
         apiKeyManager.reportFailure('newsapi', apiKey, ERROR_TYPES.AUTH_ERROR);
         lastError = data.message || 'Authentication failed';
         continue;
       }
       
-      // Other API errors
       apiKeyManager.reportFailure('newsapi', apiKey, ERROR_TYPES.API_ERROR);
       lastError = data.message || 'API error';
       
@@ -152,29 +131,28 @@ app.get('/api/search', async (req, res) => {
     }
   }
   
-  // All keys exhausted
-  console.error('[API] All NewsAPI search keys exhausted');
   res.status(503).json({ 
     error: 'All API keys exhausted or rate limited',
     details: lastError,
     articles: [] 
   });
-})
+});
 
-// Health check endpoint
+// Health check
 app.get('/api/health', (req, res) => {
   const apiStatus = apiKeyManager.getAllStatus();
   
   res.json({ 
     status: 'ok', 
     timestamp: new Date().toISOString(),
-    services: apiStatus
+    services: apiStatus,
+    env_check: {
+      key1_set: !!process.env.VITE_NEWS_API_KEY_1,
+      key2_set: !!process.env.VITE_NEWS_API_KEY_2,
+      key3_set: !!process.env.VITE_NEWS_API_KEY_3
+    }
   });
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-  const newsApiStatus = apiKeyManager.getKeyStatus('newsapi');
-  console.log(`📰 NewsAPI keys configured: ${newsApiStatus ? newsApiStatus.totalKeys : 0}`);
-});
+// Export for Vercel serverless
+export default app;

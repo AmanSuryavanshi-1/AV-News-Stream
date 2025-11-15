@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 
+/FIXES_APPLIED.md
 .kiro
 # Editor directories and files
 .vscode/*
