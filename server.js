@@ -6,6 +6,12 @@ import ApiKeyManager, { ERROR_TYPES } from './src/utils/ApiKeyManager.js';
 const app = express();
 app.use(cors());
 
+// Debug: Log environment variables (only first few chars for security)
+console.log('[Server] Environment check:');
+console.log('VITE_NEWS_API_KEY_1:', process.env.VITE_NEWS_API_KEY_1 ? '...' + process.env.VITE_NEWS_API_KEY_1.slice(-4) : 'NOT SET');
+console.log('VITE_NEWS_API_KEY_2:', process.env.VITE_NEWS_API_KEY_2 ? '...' + process.env.VITE_NEWS_API_KEY_2.slice(-4) : 'NOT SET');
+console.log('VITE_NEWS_API_KEY_3:', process.env.VITE_NEWS_API_KEY_3 ? '...' + process.env.VITE_NEWS_API_KEY_3.slice(-4) : 'NOT SET');
+
 // Initialize API Key Manager with all services
 const apiKeyManager = new ApiKeyManager({
   services: {
@@ -21,6 +27,8 @@ const apiKeyManager = new ApiKeyManager({
     }
   }
 });
+
+console.log('[Server] ApiKeyManager initialized with', apiKeyManager.getKeyStatus('newsapi')?.totalKeys || 0, 'keys');
 
 const pageSize = 10; // Reduced for better pagination
 
