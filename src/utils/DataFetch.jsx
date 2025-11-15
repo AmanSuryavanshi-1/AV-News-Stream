@@ -28,8 +28,31 @@ const DataFetch = () => {
   // HELPER FUNCTIONS
   // ============================================
   
+  // Get base URL for API calls (handles both dev and production)
+  const getBaseURL = () => {
+    // In production, use the current origin
+    if (import.meta.env.PROD) {
+      return window.location.origin;
+    }
+    // In development, use localhost
+    return '';
+  };
+  
   const fetchAPI = async (url) => {
-    const response = await fetch(url);
+    // Ensure we use absolute URLs in production for better browser compatibility
+    const fullURL = url.startsWith('http') ? url : `${getBaseURL()}${url}`;
+    
+    console.log(`[Fetch] Requesting: ${fullURL}`);
+    
+    const response = await fetch(fullURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+      credentials: 'omit'
+    });
+    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -103,12 +126,22 @@ const DataFetch = () => {
           url += `&category=${category}`;
         }
         
+        console.log(`[NewsAPI] Fetching from: ${url}`);
         const json = await fetchAPI(url);
+        
+        // Check if we got an error response
+        if (json.error) {
+          console.error(`[NewsAPI] API returned error:`, json.error, json.details);
+          throw new Error(json.error);
+        }
+        
         const articles = json.articles || [];
         
         if (articles.length > 0) {
           markAPISuccess('newsapi');
           console.log(`[NewsAPI] ✓ Fetched ${articles.length} articles (page ${pageNum})`);
+        } else {
+          console.warn(`[NewsAPI] No articles returned for page ${pageNum}`);
         }
         
         return articles;

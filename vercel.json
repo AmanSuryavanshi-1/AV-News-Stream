@@ -9,14 +9,18 @@
       }
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/serverless.js"
+      "src": "/assets/(.*)",
+      "dest": "/dist/assets/$1"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|json|woff|woff2|ttf|eot))",
+      "dest": "/dist/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/index.html"
     }
   ],
   "headers": [
