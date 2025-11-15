@@ -85,23 +85,25 @@ Create a `.env.local` file in the root directory:
 
 ```env
 # NewsAPI Keys (3 keys for rotation)
-NEWS_API_KEY_1=your_newsapi_key_1
-NEWS_API_KEY_2=your_newsapi_key_2
-NEWS_API_KEY_3=your_newsapi_key_3
+VITE_NEWS_API_KEY_1=your_newsapi_key_1
+VITE_NEWS_API_KEY_2=your_newsapi_key_2
+VITE_NEWS_API_KEY_3=your_newsapi_key_3
 
 # GNews Keys (3 keys for rotation)
-GNEWS_API_KEY_1=your_gnews_key_1
-GNEWS_API_KEY_2=your_gnews_key_2
-GNEWS_API_KEY_3=your_gnews_key_3
+VITE_GNEWS_API_KEY_1=your_gnews_key_1
+VITE_GNEWS_API_KEY_2=your_gnews_key_2
+VITE_GNEWS_API_KEY_3=your_gnews_key_3
 
 # YouTube Keys (3 keys for rotation)
-YT_API_KEY_1=your_youtube_key_1
-YT_API_KEY_2=your_youtube_key_2
-YT_API_KEY_3=your_youtube_key_3
+VITE_YT_API_KEY_1=your_youtube_key_1
+VITE_YT_API_KEY_2=your_youtube_key_2
+VITE_YT_API_KEY_3=your_youtube_key_3
 
 # Server Port (optional)
 PORT=3001
 ```
+
+📖 **See [ENV_SETUP.md](ENV_SETUP.md) for detailed environment variable configuration guide**
 
 ### 4. Get API Keys
 

@@ -126,9 +126,9 @@ const DataFetch = () => {
       }
 
       const gnewsKeys = [
-        import.meta.env.GNEWS_API_KEY_1,
-        import.meta.env.GNEWS_API_KEY_2,
-        import.meta.env.GNEWS_API_KEY_3
+        import.meta.env.VITE_GNEWS_API_KEY_1,
+        import.meta.env.VITE_GNEWS_API_KEY_2,
+        import.meta.env.VITE_GNEWS_API_KEY_3
       ].filter(Boolean);
 
       if (gnewsKeys.length === 0) {

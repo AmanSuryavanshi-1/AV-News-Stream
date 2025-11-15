@@ -6,9 +6,9 @@ const useYTNewsFetch = () => {
   
   // Multiple YouTube keys for fallback
   const YT_API_KEYS = [
-    import.meta.env.YT_API_KEY_1,
-    import.meta.env.YT_API_KEY_2,
-    import.meta.env.YT_API_KEY_3
+    import.meta.env.VITE_YT_API_KEY_1,
+    import.meta.env.VITE_YT_API_KEY_2,
+    import.meta.env.VITE_YT_API_KEY_3
   ].filter(Boolean);
 
   const YouTubeNews = async () => {
