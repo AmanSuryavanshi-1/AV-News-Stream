@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>API Endpoint Test</h1>
+    <p>Test your API endpoints to ensure they're working correctly.</p>
+    
+    <div>
+        <button onclick="testHealth()">Test /api/health</button>
+        <button onclick="testNews()">Test /api/news</button>
+        <button onclick="testSearch()">Test /api/search</button>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        const resultDiv = document.getElementById('result');
+        
+        async function testEndpoint(url, name) {
+            resultDiv.innerHTML = `<p>Testing ${name}...</p>`;
+            
+            try {
+                const response = await fetch(url);
+                const contentType = response.headers.get('content-type');
+                
+                resultDiv.innerHTML = `
+                    <h3>${name}</h3>
+                    <p class="success">✅ Status: ${response.status} ${response.statusText}</p>
+                    <p>Content-Type: ${contentType}</p>
+                `;
+                
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    resultDiv.innerHTML += `
+                        <p class="success">✅ Valid JSON response</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    const text = await response.text();
+                    resultDiv.innerHTML += `
+                        <p class="error">❌ Not JSON! Got: ${contentType}</p>
+                        <pre>${text.substring(0, 500)}...</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>${name}</h3>
+                    <p class="error">❌ Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        function testHealth() {
+            testEndpoint('/api/health', 'Health Check');
+        }
+        
+        function testNews() {
+            testEndpoint('/api/news?category=general', 'News Endpoint');
+        }
+        
+        function testSearch() {
+            testEndpoint('/api/search?query=technology', 'Search Endpoint');
+        }
+    </script>
+</body>
+</html>

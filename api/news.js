@@ -18,7 +18,7 @@ const apiKeyManager = new ApiKeyManager({
   }
 });
 
-const pageSize = 10;
+const pageSize = 20; // Increased since we're only using NewsAPI now
 
 export default async function handler(req, res) {
   // Set CORS headers

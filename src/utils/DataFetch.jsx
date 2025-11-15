@@ -38,7 +38,7 @@ const DataFetch = () => {
     return '';
   };
   
-  const fetchAPI = async (url) => {
+  const fetchAPI = useCallback(async (url) => {
     // Ensure we use absolute URLs in production for better browser compatibility
     const fullURL = url.startsWith('http') ? url : `${getBaseURL()}${url}`;
     
@@ -48,6 +48,7 @@ const DataFetch = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       mode: 'cors',
       credentials: 'omit'
@@ -56,8 +57,16 @@ const DataFetch = () => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+    
+    // Check if response is actually JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      console.error(`[Fetch] Expected JSON but got: ${contentType}`);
+      throw new Error(`Server returned ${contentType} instead of JSON - API routing may be broken`);
+    }
+    
     return await response.json();
-  };
+  }, []); // Empty dependency array since getBaseURL and fetch are stable
 
   const isAPIAvailable = (apiName) => {
     const failure = apiFailureTracker.get(apiName);
@@ -152,54 +161,10 @@ const DataFetch = () => {
       }
     };
 
-    const fetchGNews = async (pageNum) => {
-      if (!isAPIAvailable('gnews')) {
-        console.log('[GNews] Skipping - in cooldown period');
-        return [];
-      }
-
-      const gnewsKeys = [
-        import.meta.env.VITE_GNEWS_API_KEY_1,
-        import.meta.env.VITE_GNEWS_API_KEY_2,
-        import.meta.env.VITE_GNEWS_API_KEY_3
-      ].filter(Boolean);
-
-      if (gnewsKeys.length === 0) {
-        return [];
-      }
-
-      // GNews doesn't support pagination well, so only fetch on page 1
-      if (pageNum > 1) {
-        return [];
-      }
-
-      // Try each key
-      for (let i = 0; i < gnewsKeys.length; i++) {
-        try {
-          const apikey = gnewsKeys[i];
-          const url = `https://gnews.io/api/v4/top-headlines?category=${category || 'general'}&lang=en&country=in&max=10&apikey=${apikey}`;
-          
-          const json = await fetchAPI(url);
-          
-          if (json.articles && json.articles.length > 0) {
-            markAPISuccess('gnews');
-            console.log(`[GNews] ✓ Fetched ${json.articles.length} articles (key ${i + 1})`);
-            return json.articles;
-          }
-        } catch (error) {
-          // If 403, try next key
-          if (error.message.includes('403')) {
-            continue;
-          }
-          // Other errors, mark as failed
-          if (i === gnewsKeys.length - 1) {
-            markAPIFailed('gnews', error);
-          }
-        }
-      }
-      
-      console.warn('[GNews] All keys exhausted or failed');
-      markAPIFailed('gnews', new Error('All keys exhausted'));
+    const fetchGNews = async () => {
+      // GNews is disabled for now - causes CORS issues in some browsers
+      // All news will come from NewsAPI through our backend
+      console.log('[GNews] Disabled - using NewsAPI only');
       return [];
     };
     // Prevent duplicate calls in React StrictMode (only for initial load)
@@ -226,10 +191,10 @@ const DataFetch = () => {
 
       console.log(`[Fetch] Starting for category: ${category || 'general'}, page: ${pageNum}`);
       
-      // Fetch from both APIs in parallel (whichever works)
+      // Fetch from NewsAPI only (GNews disabled due to CORS issues in some browsers)
       const [newsAPIArticles, gNewsArticles] = await Promise.allSettled([
         fetchNewsAPI(pageNum),
-        fetchGNews(pageNum)
+        fetchGNews()
       ]);
 
       // Extract successful results
@@ -306,7 +271,7 @@ const DataFetch = () => {
         setLoading(false);
       }
     }
-  }, [category, setNewsCopy]);
+  }, [category, fetchAPI, setNewsCopy]);
 
   const loadMore = useCallback(() => {
     const nextPage = page + 1;
