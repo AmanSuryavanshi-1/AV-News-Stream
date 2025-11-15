@@ -1,11 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import fetch from 'node-fetch';
-import dotenv from 'dotenv';
 import ApiKeyManager, { ERROR_TYPES } from './src/utils/ApiKeyManager.js';
-
-// Load environment variables from .env.local
-dotenv.config({ path: '.env.local' });
 
 const app = express();
 app.use(cors());
