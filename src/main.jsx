@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -9,7 +9,6 @@ import Notes from './pages/Notes.jsx';
 import Auth from './pages/Auth.jsx';
 import AppLayout from './pages/AppLayout.jsx';
 import YTNews from './pages/YTNews.jsx';
-import ShimmerAbout from './pages/ShimmerAbout.jsx';
 
 const appRouter = createBrowserRouter([
   {
