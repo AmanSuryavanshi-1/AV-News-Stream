@@ -8,7 +8,29 @@ import ApiKeyManager, { ERROR_TYPES } from './src/utils/ApiKeyManager.js';
 dotenv.config({ path: '.env.local' });
 
 const app = express();
-app.use(cors());
+
+// Enhanced CORS configuration for all browsers including Perplexity
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: false,
+  maxAge: 86400
+}));
+
+// Additional CORS headers middleware for maximum compatibility
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.header('Access-Control-Max-Age', '86400');
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
+  next();
+});
 
 // Debug: Log environment variables (only first few chars for security)
 console.log('[Server] Environment check:');
@@ -38,6 +60,11 @@ const pageSize = 10; // Reduced for better pagination
 
 //~ server.js for avoiding CORS requests for fetching news based categories
 app.get('/api/news', async (req, res) => {
+  // Ensure CORS headers are set
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
   const { category, page: requestedPage } = req.query;
   const currentPage = parseInt(requestedPage) || 1;
   let lastError = null;
@@ -101,6 +128,11 @@ app.get('/api/news', async (req, res) => {
 
 //~ server.js for avoiding CORS requests for fetching news based on search term
 app.get('/api/search', async (req, res) => {
+  // Ensure CORS headers are set
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
   const { query } = req.query;
   
   if (!query) {
@@ -163,6 +195,11 @@ app.get('/api/search', async (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
+  // Ensure CORS headers are set
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
   const apiStatus = apiKeyManager.getAllStatus();
   
   res.json({ 

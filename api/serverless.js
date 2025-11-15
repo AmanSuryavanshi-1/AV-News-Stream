@@ -7,7 +7,30 @@ import fetch from 'node-fetch';
 import ApiKeyManager, { ERROR_TYPES } from '../src/utils/ApiKeyManager.js';
 
 const app = express();
-app.use(cors());
+
+// Enhanced CORS configuration for all browsers including Perplexity
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: false,
+  maxAge: 86400 // 24 hours
+}));
+
+// Additional CORS headers middleware for maximum compatibility
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.header('Access-Control-Max-Age', '86400');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
+  next();
+});
 
 // Initialize API Key Manager with environment variables
 // In Vercel, process.env automatically includes variables set in dashboard
@@ -30,6 +53,11 @@ const pageSize = 10;
 
 // News endpoint
 app.get('/api/news', async (req, res) => {
+  // Ensure CORS headers are set
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
   const { category, page: requestedPage } = req.query;
   const currentPage = parseInt(requestedPage) || 1;
   let lastError = null;
@@ -85,6 +113,11 @@ app.get('/api/news', async (req, res) => {
 
 // Search endpoint
 app.get('/api/search', async (req, res) => {
+  // Ensure CORS headers are set
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
   const { query } = req.query;
   
   if (!query) {
@@ -140,6 +173,11 @@ app.get('/api/search', async (req, res) => {
 
 // Health check
 app.get('/api/health', (req, res) => {
+  // Ensure CORS headers are set
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
   const apiStatus = apiKeyManager.getAllStatus();
   
   res.json({ 
