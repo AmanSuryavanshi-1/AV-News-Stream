@@ -1,59 +1,93 @@
 import React from 'react';
 import logo from '../../assets/AV_Main Logo.png';
-import meLogo from '../../assets/ASlogo.png';
-import { BsLinkedin } from 'react-icons/bs';
-import { FaGithub, FaInstagram } from 'react-icons/fa';
-import { LiaInfoSolid } from 'react-icons/lia';
-import { IoCallOutline,IoHomeOutline } from 'react-icons/io5';
+import { BsLinkedin, BsTwitterX } from 'react-icons/bs';
+import { FaGithub } from 'react-icons/fa';
+import { IoHomeOutline, IoInformationCircleOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { IoIosContact } from "react-icons/io";
+import { HiOutlineUser } from "react-icons/hi";
 
 const Footer = () => {
   return (
-    <footer className="py-12 text-center text-md bg-primary-light text-primary-bgColor">
-      <div className="flex justify-center mb-16 space-x-4">
-        <img src={meLogo} loading="lazy" alt="Main Logo" className="object-contain w-16 h-16" />
-        <img src={logo} loading='lazy' alt="Logo" className="object-contain w-16 h-16" />
+    <footer className="relative bg-gradient-to-r from-primary-dark via-primary-grey to-primary-dark border-t border-primary-yellow/20 h-[10vh] min-h-[80px] overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary-yellow rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary-light rounded-full blur-3xl"></div>
       </div>
 
-      <ul className="flex flex-wrap justify-center gap-10 mb-16">
-      <Link to="/" className='flex items-center'>
-        <li className="flex items-center font-sans transition-colors duration-300 text-primary-bgColor hover:text-primary-yellow">
-          <IoHomeOutline className="w-6 h-6 mr-1" /> Home
-        </li>
-      </Link>
-      <Link to="/about" className='flex items-center'>
-        <li className="flex items-center font-sans transition-colors duration-300 text-primary-bgColor hover:text-primary-yellow">
-          <LiaInfoSolid className="w-6 h-6 mr-1" /> About
-        </li>
-      </Link>
-      <Link to="https://aman-suryavanshi-portfolio.netlify.app/" className='flex items-center'>
-        <li className="flex items-center font-sans transition-colors duration-300 text-primary-bgColor hover:text-primary-yellow">
-          <IoIosContact className="w-6 h-6 mr-1" /> Portfolio
-        </li>
-      </Link>
-      <Link to="/contact" className='flex items-center'>
-        <li className="flex items-center font-sans transition-colors duration-300 text-primary-bgColor hover:text-primary-yellow">
-          <IoCallOutline className="w-6 h-6 mr-1" /> Contact
-        </li>
-      </Link>
-    </ul>
+      <div className="relative flex items-center justify-between h-full max-w-7xl mx-auto px-6">
+        
+        {/* Left: Logo & Copyright */}
+        <div className="flex items-center space-x-4">
+          <img src={logo} loading='lazy' alt="AV News Stream" className="object-contain w-20 h-10 brightness-110" />
+          <div className="hidden sm:block w-px h-8 bg-primary-yellow/20"></div>
+          <p className="hidden sm:block text-xs font-medium text-primary-light/70">
+            &copy; {new Date().getFullYear()} <span className="text-primary-yellow">Aman Suryavanshi</span>
+          </p>
+        </div>
 
+        {/* Center: Navigation Icons */}
+        <nav className="hidden md:flex items-center space-x-2">
+          <Link 
+            to="/" 
+            className="group relative p-2.5 rounded-lg bg-primary-bgColor/50 backdrop-blur-sm border border-primary-yellow/10 hover:border-primary-yellow/40 transition-all duration-300 hover:scale-110"
+            title="Home"
+          >
+            <IoHomeOutline className="w-5 h-5 text-primary-light group-hover:text-primary-yellow transition-colors duration-300" />
+          </Link>
+          <Link 
+            to="/about" 
+            className="group relative p-2.5 rounded-lg bg-primary-bgColor/50 backdrop-blur-sm border border-primary-yellow/10 hover:border-primary-yellow/40 transition-all duration-300 hover:scale-110"
+            title="About"
+          >
+            <IoInformationCircleOutline className="w-5 h-5 text-primary-light group-hover:text-primary-yellow transition-colors duration-300" />
+          </Link>
+          <a 
+            href="https://amansuryavanshi-dev.vercel.app/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group relative p-2.5 rounded-lg bg-primary-bgColor/50 backdrop-blur-sm border border-primary-yellow/10 hover:border-primary-yellow/40 transition-all duration-300 hover:scale-110"
+            title="Portfolio"
+          >
+            <HiOutlineUser className="w-5 h-5 text-primary-light group-hover:text-primary-yellow transition-colors duration-300" />
+          </a>
+        </nav>
 
-    <div className="flex justify-center mb-8 space-x-6">
-      <Link to="https://www.linkedin.com/in/amansuryavanshi/" className="p-4 transition-all duration-300 border border-transparent rounded-xl bg-primary-bgColor social-icon hover:bg-primary-light hover:border-primary-bgColor">
-        <BsLinkedin className="text-lg text-primary-yellow" />
-      </Link>
-      <Link to="https://github.com/AmanSuryavanshi-1" className="p-4 transition-all duration-300 border border-transparent rounded-xl bg-primary-bgColor social-icon hover:bg-primary-light hover:border-primary-bgColor">
-        <FaGithub className="text-lg text-primary-yellow" />
-      </Link>
-      <Link to="https://www.instagram.com/__aman_suryavanshi__/" className="p-4 transition-all duration-300 border border-transparent rounded-xl bg-primary-bgColor social-icon hover:bg-primary-light hover:border-primary-bgColor">
-        <FaInstagram className="text-lg text-primary-yellow" />
-      </Link>
-    </div>
+        {/* Right: Social Links */}
+        <div className="flex items-center space-x-2">
+          <a 
+            href="https://www.linkedin.com/in/aman-suryavanshi-6b0aba347/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-lg bg-primary-bgColor/50 backdrop-blur-sm border border-primary-yellow/10 text-primary-light hover:bg-primary-yellow hover:text-primary-bgColor hover:border-primary-yellow transition-all duration-300 hover:scale-110"
+            title="LinkedIn"
+          >
+            <BsLinkedin className="w-4 h-4" />
+          </a>
+          <a 
+            href="https://github.com/AmanSuryavanshi-1" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-lg bg-primary-bgColor/50 backdrop-blur-sm border border-primary-yellow/10 text-primary-light hover:bg-primary-yellow hover:text-primary-bgColor hover:border-primary-yellow transition-all duration-300 hover:scale-110"
+            title="GitHub"
+          >
+            <FaGithub className="w-4 h-4" />
+          </a>
+          <a 
+            href="https://twitter.com/_AmanSurya" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-lg bg-primary-bgColor/50 backdrop-blur-sm border border-primary-yellow/10 text-primary-light hover:bg-primary-yellow hover:text-primary-bgColor hover:border-primary-yellow transition-all duration-300 hover:scale-110"
+            title="Twitter"
+          >
+            <BsTwitterX className="w-4 h-4" />
+          </a>
+        </div>
 
-      <div className="text-sm text-primary-bgColor">
-        <small>&copy; AMAN SURYAVANSHI. All rights reserved.</small>
+        {/* Mobile Copyright */}
+        <p className="sm:hidden absolute bottom-1 left-0 right-0 text-center text-[10px] text-primary-light/50">
+          &copy; {new Date().getFullYear()} <span className="text-primary-yellow">AS</span>
+        </p>
       </div>
     </footer>
   );

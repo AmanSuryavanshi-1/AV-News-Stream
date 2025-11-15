@@ -5,7 +5,7 @@ import mainLogo from '../../assets/AV_Main Logo.png';
 import { FiLogIn, FiLogOut, FiMenu, FiX } from "react-icons/fi";
 import { MdBookmarkBorder, MdOutlineNewspaper, MdOutlineOndemandVideo } from "react-icons/md";
 import { TbNotes } from 'react-icons/tb';
-import { IoInformationCircleOutline, IoPersonOutline } from 'react-icons/io5';
+import { IoInformationCircleOutline } from 'react-icons/io5';
 
 const Navbar = () => {
   const [btnName, setBtnName] = useState("Login");
@@ -30,7 +30,6 @@ const Navbar = () => {
     { title: 'Watch News', url: '/watchNews', icon: <MdOutlineOndemandVideo className="w-5 h-5" /> },
     { title: 'Notes', url: '/notes', icon: <TbNotes className="w-5 h-5" /> },
     { title: 'About', url: '/about', icon: <IoInformationCircleOutline className="w-5 h-5" /> },
-    { title: 'Contact', url: '/contact', icon: <IoPersonOutline className="w-5 h-5" /> },
   ];
 
   const SavedLink = () => {
