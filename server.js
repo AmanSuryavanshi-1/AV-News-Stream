@@ -15,9 +15,9 @@ const apiKeyManager = new ApiKeyManager({
   services: {
     newsapi: {
       keys: [
-        process.env.VITE_NEWS_API_KEY_1,
-        process.env.VITE_NEWS_API_KEY_2,
-        process.env.VITE_NEWS_API_KEY_3
+        process.env.NEWS_API_KEY_1,
+        process.env.NEWS_API_KEY_2,
+        process.env.NEWS_API_KEY_3
       ].filter(Boolean),
       rateLimitCooldown: 3600000,  // 1 hour
       errorCooldown: 300000,        // 5 minutes
